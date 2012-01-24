@@ -13,9 +13,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/arq-2.8.7.jar"/>
-	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/jena-2.6.4.jar"/>
-	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/log4j-1.2.13.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/slf4j-api-1.5.8.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/slf4j-log4j12-1.5.8.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/pellet-core.jar"/>
@@ -27,8 +24,6 @@
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/pellet-owlapi.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/pellet-owlapiv3.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/pellet-query.jar"/>
-	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/icu4j-3.4.4.jar"/>
-	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/iri-0.8.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/xercesImpl-2.7.1.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/aterm-java-1.6.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/pellet-cli.jar"/>

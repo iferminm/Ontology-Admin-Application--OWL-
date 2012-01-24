@@ -1,10 +1,50 @@
 package com.admin.owlmanager;
 
+import java.io.FileInputStream;
+
+import com.hp.hpl.jena.rdf.model.Model;
+
+import virtuoso.jena.driver.VirtModel;
+
+/**
+ * This singleton class imports an OWL model 
+ * into a Virtuoso stored Graph 
+ * 
+ * @author israelord
+ */
 public class VirtuosoImporter {
 	
+	private static VirtuosoImporter instance = new VirtuosoImporter();
 	
-	public void toVirtuoso(String path) {
-		
+	private String connection;
+	private String user;
+	private String pwd;
+	
+	private VirtuosoImporter() {
+		//TODO read from properties
+		this.connection = "jdbc:virtuoso://localhost:1111";
+		this.user = "dba";
+		this.pwd = "virtuoso";
 	}
-
+	
+	public static VirtuosoImporter getTheInstance() {
+		return instance;
+	}
+	
+	/**
+	 * Imports an OWL model into a Virtuoso
+	 * stored Graph
+	 * @param path OWL model location
+	 * @return
+	 */
+	public boolean toVirtuoso(String path) {
+		try {
+			Model virtModel = VirtModel.openDatabaseModel("Thesis:Test", connection, user, pwd);
+			virtModel.read(new FileInputStream(path), "http://localhost/thesis/virt");
+			return true;
+		} catch (Exception ex) {
+			ex.printStackTrace();
+			return false;
+		}
+	}
 }
