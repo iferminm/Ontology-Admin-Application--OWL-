@@ -33,5 +33,6 @@
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/pellet-test.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/virtjdbc3.jar"/>
 	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/WebContent/WEB-INF/lib/virt_jena.jar"/>
+	<classpathentry kind="lib" path="/home/israelord/workspace/ThesisOntologyAdmin/build/classes/com/admin/owlmanager"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
