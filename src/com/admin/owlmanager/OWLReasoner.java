@@ -30,7 +30,7 @@ public class OWLReasoner {
 	 * @throws FileNotFoundException if the route to the file is not valid
 	 */
 	private void writeModel(InfModel model, String path) throws FileNotFoundException {
-		FileOutputStream out = new FileOutputStream("/var/www/ontologies/reasoned_test.owl");
+		FileOutputStream out = new FileOutputStream(path);
 		model.write(out);
 	}
 	
@@ -62,17 +62,17 @@ public class OWLReasoner {
 	 */
 	public boolean generateReasonedModel(String sourcePath, String targetPath) {
 		InfModel model = this.reasonOverModel(sourcePath);
+		boolean res = false;
 		try {
 			this.writeModel(model, targetPath);
-			return true;
+			res = true;
 		} catch (FileNotFoundException ex) {
 			ex.printStackTrace();
-			return false;
 			// TODO log4j
 		} catch (Exception ex) {
 			ex.printStackTrace();
-			return false;
 			// TODO log4j
 		}
+		return res;
 	}
 }

@@ -37,14 +37,29 @@ public class VirtuosoImporter {
 	 * @param path OWL model location
 	 * @return
 	 */
-	public boolean toVirtuoso(String path) {
+	public boolean toVirtuoso(String path, String graphName, String label) {
+		boolean res = false;
 		try {
-			Model virtModel = VirtModel.openDatabaseModel("Thesis:Test", connection, user, pwd);
-			virtModel.read(new FileInputStream(path), "http://localhost/thesis/virt");
-			return true;
+			Model virtModel = VirtModel.openDatabaseModel(graphName, connection, user, pwd);
+			virtModel.read(new FileInputStream(path), label);
+			res = true;
 		} catch (Exception ex) {
+			// TODO: log4j
 			ex.printStackTrace();
-			return false;
 		}
+		return res;
+	}
+	
+	public boolean deleteGraph(String graphName) {
+		boolean res = false;
+		try {
+			Model virtModel = VirtModel.openDatabaseModel(graphName, connection, user, pwd);
+			virtModel.removeAll();
+			res = true;
+		} catch(Exception ex) {
+			// TODO: log4j
+			ex.printStackTrace();
+		}
+		return res;
 	}
 }
