@@ -50,6 +50,11 @@ public class VirtuosoImporter {
 		return res;
 	}
 	
+	/**
+	 * Permanently deletes a stored graph
+	 * @param graphName the name of the graph we want to delete
+	 * @return true if everything went OK
+	 */
 	public boolean deleteGraph(String graphName) {
 		boolean res = false;
 		try {
