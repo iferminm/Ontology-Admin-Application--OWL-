@@ -28,4 +28,11 @@ public class OntologyManager {
 		
 	}
 	
+	public void addResource() {
+		
+	}
+	
+	public void removeResource() {
+		
+	}
 }
