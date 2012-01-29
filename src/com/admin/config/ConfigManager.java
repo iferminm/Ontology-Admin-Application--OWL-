@@ -54,7 +54,7 @@ public class ConfigManager {
 	}
 	
 	public ConfigManager() {
-		this("ServerConfig.properties");
+
 	}
 	
 	private void loadProperties(String fileName) {
