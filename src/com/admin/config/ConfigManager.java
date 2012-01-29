@@ -14,15 +14,10 @@ import java.util.Properties;
  */
 public class ConfigManager {
 
-	private static ConfigManager instance = new ConfigManager();
-	private final String fileName = "ServerConfig.properties";
+	private String fileName = "ServerConfig.properties";
 	private Properties properties;
 	private String defaultValue = "not set";
 
-	
-	public static ConfigManager getInstance() {
-		return instance;
-	}
 	
 	private Properties generateProperties() {
 		properties = new Properties();
@@ -44,6 +39,8 @@ public class ConfigManager {
 	private void generateFile(String name) {
 		FileOutputStream output;
 		try {
+			File file = new File(name);
+			file.createNewFile();
 			Properties properties = generateProperties();
 			output = new FileOutputStream(fileName);
 			properties.store(output, "Server Configuration File");
@@ -56,17 +53,33 @@ public class ConfigManager {
 		}
 	}
 	
-	private ConfigManager() { 
+	public ConfigManager() {
+		this("ServerConfig.properties");
+	}
+	
+	private void loadProperties(String fileName) {
 		try {
-			FileInputStream input = new FileInputStream(fileName);
-			properties.load(input);
+			FileInputStream in = new FileInputStream(fileName);
+			this.properties.load(in);
 		} catch (FileNotFoundException e) {
-			new File(fileName);
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			generateFile(fileName);
+		}
+	}
+	
+	// TODO: rewrite
+	public ConfigManager(String fileName) {
+		if (fileName.endsWith(".properties")) {
+			File file = new File(fileName);
+			if (!file.exists()) {
+				this.generateFile(fileName);
+			}
+			this.loadProperties(fileName);
+		} else {
+			System.out.println("Invalid Name");
 		}
 	}
 }
