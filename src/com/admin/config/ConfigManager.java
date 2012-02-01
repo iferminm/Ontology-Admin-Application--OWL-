@@ -19,7 +19,7 @@ public class ConfigManager {
 	}
 	
 	private ResourceBundle getResource() {
-		ResourceBundle resource = ResourceBundle.getBundle("com.admin.config.ServerConfig.properties");
+		ResourceBundle resource = ResourceBundle.getBundle("com.admin.config.ServerConfig");
 		return resource;
 	}
 	
