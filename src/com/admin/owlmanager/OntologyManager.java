@@ -16,12 +16,13 @@ public class OntologyManager {
 		
 	}
 	
-	public void deleteOntology() {
-		
+	public boolean deleteOntology(String graphName) {
+		return VirtuosoImporter.getTheInstance().deleteGraph(graphName);
 	}
 	
 	public void loadOntology() {
-		
+		OWLReasoner reasoner = new OWLReasoner();
+		boolean result = reasoner.generateReasonedModel(sourcePath, targetPath);
 	}
 	
 	public void getTriplets() {
