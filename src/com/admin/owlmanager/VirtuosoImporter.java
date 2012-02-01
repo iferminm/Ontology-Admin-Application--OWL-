@@ -35,6 +35,10 @@ public class VirtuosoImporter {
 	 * Imports an OWL model into a Virtuoso
 	 * stored Graph
 	 * @param path OWL model location
+	 * @param graphName given name for the graph we're going to store
+	 *        This name will also be used for SPARQL Queries
+	 * @param label a label for the graph, usually on an URL form
+	 * 
 	 * @return
 	 */
 	public boolean toVirtuoso(String path, String graphName, String label) {
