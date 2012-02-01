@@ -1,5 +1,7 @@
 package com.admin.owlmanager;
 
+import com.admin.config.ConfigManager;
+
 
 /**
  * This class manages all that has to do with the ontology
@@ -20,9 +22,18 @@ public class OntologyManager {
 		return VirtuosoImporter.getTheInstance().deleteGraph(graphName);
 	}
 	
-	public void loadOntology() {
+	public boolean loadOntology() {
 		OWLReasoner reasoner = new OWLReasoner();
+		ConfigManager cm = ConfigManager.getInstance();
+		String sourcePath = cm.getProperty("baseModelPath");
+		String targetPath = cm.getProperty("reasonedModelPath");
+		String graphName = cm.getProperty("graphName");
+		String graphLabel = cm.getProperty("graphLabel");
+		
 		boolean result = reasoner.generateReasonedModel(sourcePath, targetPath);
+		result = result && VirtuosoImporter.getTheInstance().toVirtuoso(targetPath, graphName, graphLabel);
+
+		return result;
 	}
 	
 	public void getTriplets() {
