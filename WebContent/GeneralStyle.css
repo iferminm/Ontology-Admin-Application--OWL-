@@ -1,0 +1,40 @@
+@CHARSET "UTF-8";
+
+* {
+	margin: 0px;
+	padding: 0px;
+	border: 0px;
+}
+
+DIV#wrapper {
+	width: 100%;
+	height: 100%;
+}
+
+DIV#header {
+	width: 100%;
+	height: 100px;
+	background-color: green;
+	vertical-align: top;
+	position: absolute;
+}
+
+DIV#contentwrapper{
+	width: 70%;
+	height: 100%;
+	background-color: gray;
+	margin-top: 100px;
+	margin-left: 20%;
+	position: absolute;
+	
+}
+
+DIV#menu {
+	height: 100%;
+	width: 10%;
+	float: left;
+	margin-top: 100px;
+	margin-left: 10%;
+	position: absolute;
+	background-color: blue;
+}
