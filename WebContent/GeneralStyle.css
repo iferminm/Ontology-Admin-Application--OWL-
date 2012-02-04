@@ -4,37 +4,61 @@
 	margin: 0px;
 	padding: 0px;
 	border: 0px;
+	font-family: sans-serif;
+	
 }
 
 DIV#wrapper {
 	width: 100%;
 	height: 100%;
+	background-image: "images/gradient.jpg";
+	background-repeat: repeat-x;
 }
 
 DIV#header {
 	width: 100%;
 	height: 100px;
-	background-color: green;
 	vertical-align: top;
 	position: absolute;
+	border-bottom: 1px solid black;
+	background-image: "images/gradient.jpg";
+	background-repeat: repeat-x;
 }
 
 DIV#contentwrapper{
-	width: 70%;
+	width: 60%;
 	height: 100%;
-	background-color: gray;
 	margin-top: 100px;
 	margin-left: 20%;
 	position: absolute;
-	
+	padding-left: 10%;
+	border-right: 1px solid black;
+	padding-top: 5%;
 }
 
 DIV#menu {
+	padding-top: 10%;
 	height: 100%;
 	width: 10%;
 	float: left;
 	margin-top: 100px;
 	margin-left: 10%;
 	position: absolute;
-	background-color: blue;
+	border-left: 1px solid black;
+	border-right: 1px solid black;
+}
+
+DIV#menuitem{
+	width: 80%;
+	padding: 3px;
+	border: 1px solid black;
+	margin-top: 10%;
+	margin-left: 8%;
+	text-align: center;
+	text-style: bold;
+}
+
+DIV#menuitem:hover {
+	background-color: black;
+	color: white;
 }
