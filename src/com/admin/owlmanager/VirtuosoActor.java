@@ -105,30 +105,7 @@ public class VirtuosoActor {
 		
 		VirtuosoQueryExecution vqe = VirtuosoQueryExecutionFactory.create(sparql, graph);
 		ResultSet res = vqe.execSelect();
-		int counter = 1;
 		
-		RDFNode s = null;
-		RDFNode p = null;
-		RDFNode o = null;
-		
-		while (res.hasNext()) {
-//			try {
-			QuerySolution rs = res.nextSolution();
-			s = rs.get("s");
-			p = rs.get("p");
-			o = rs.get("o");
-			String[] ss = s.toString().split("/");
-			String[] ps = p.toString().split("/");
-			String[] os = o.toString().split("/");
-			System.out.println(" { " + ss[ss.length - 1] + " " + ps[ps.length - 1] + " " + os[os.length - 1] + " . }");
-			counter++;
-//			} catch (Exception ex) {
-//				ex.printStackTrace();
-//				System.out.println(" " + s + " " + p + " " + o );
-//				System.out.println(counter);
-//			}
-		}
-		System.out.println("Total: " + counter);
 		return res;
 	}
 }

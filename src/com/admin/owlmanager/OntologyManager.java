@@ -1,6 +1,7 @@
 package com.admin.owlmanager;
 
 import com.admin.config.ConfigManager;
+import com.hp.hpl.jena.query.ResultSet;
 
 
 /**
@@ -34,6 +35,22 @@ public class OntologyManager {
 		result = result && VirtuosoActor.getTheInstance().toVirtuoso(targetPath, graphName, graphLabel);
 
 		return result;
+	}
+	
+	private String[][][] populate(ResultSet rs) {
+		String[][][] result = null;
+		
+		return result;
+	}
+	
+	public String[][][] getModelAsString() {
+		String[][][] res = null;
+		ResultSet rs = VirtuosoActor.getTheInstance()
+				.getAllModel(ConfigManager.getInstance()
+						.getProperty("graphName"));
+		res = this.populate(rs);
+		
+		return res;
 	}
 	
 	public void getTriplets() {
