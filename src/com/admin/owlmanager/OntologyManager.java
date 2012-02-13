@@ -19,11 +19,11 @@ public class OntologyManager {
 	}
 	
 	public boolean deleteOntology(String graphName) {
-		return VirtuosoImporter.getTheInstance().deleteGraph(graphName);
+		return VirtuosoActor.getTheInstance().deleteGraph(graphName);
 	}
 	
 	public boolean loadOntology() {
-		OWLReasoner reasoner = new OWLReasoner();
+		OWLActor reasoner = new OWLActor();
 		ConfigManager cm = ConfigManager.getInstance();
 		String sourcePath = cm.getProperty("baseModelPath");
 		String targetPath = cm.getProperty("reasonedModelPath");
@@ -31,7 +31,7 @@ public class OntologyManager {
 		String graphLabel = cm.getProperty("graphLabel");
 		
 		boolean result = reasoner.generateReasonedModel(sourcePath, targetPath);
-		result = result && VirtuosoImporter.getTheInstance().toVirtuoso(targetPath, graphName, graphLabel);
+		result = result && VirtuosoActor.getTheInstance().toVirtuoso(targetPath, graphName, graphLabel);
 
 		return result;
 	}
