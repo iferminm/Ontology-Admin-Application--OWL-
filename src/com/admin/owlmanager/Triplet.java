@@ -1,6 +1,9 @@
 package com.admin.owlmanager;
 
 public class Triplet {
+	private static final String URL_SEP_CHAR = "/";
+	private static final String NAME_SEP_CHAR = "#";
+	
 	private String subject;
 	private String predicate;
 	private String object;
@@ -37,18 +40,44 @@ public class Triplet {
 		this.object = object;
 	}
 
-	public String getSimpleSubgect() {
+	private String getLastToken(String complete, String sepChar) {
+		String[] tokens = complete.split(sepChar);
+		return tokens[tokens.length - 1];
+	}
 	
-		return null;
+	public String getSimpleSubject() {
+		String result = null;
+		
+		if (subject.contains(NAME_SEP_CHAR)) {
+			result = getLastToken(subject, NAME_SEP_CHAR);
+		} else {
+			result = getLastToken(subject, URL_SEP_CHAR);
+		}
+		
+		return result;
 	}
 	
 	public String getSimplePredicate() {
+		String result = null;
 		
-		return null;
+		if (predicate.contains(NAME_SEP_CHAR)) {
+			result = getLastToken(predicate, NAME_SEP_CHAR);
+		} else {
+			result = getLastToken(predicate, URL_SEP_CHAR);
+		}
+			
+		return result;
 	}
 
 	public String getSimpleObject() {
-	
-		return null;
+		String result = null;
+		
+		if (object.contains(NAME_SEP_CHAR)) {
+			result = getLastToken(object, NAME_SEP_CHAR);
+		} else {
+			result = getLastToken(object, URL_SEP_CHAR);
+		}
+		
+		return result;
 	}
 }
