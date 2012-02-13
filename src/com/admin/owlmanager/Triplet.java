@@ -1,6 +1,13 @@
 package com.admin.owlmanager;
 
+/**
+ * This is an abstraction class to manage
+ * triplets as strings in an easier way
+ * 
+ * @author israelord
+ */
 public class Triplet {
+	
 	private static final String URL_SEP_CHAR = "/";
 	private static final String NAME_SEP_CHAR = "#";
 	
@@ -16,6 +23,10 @@ public class Triplet {
 		this.object = o;
 	}
 
+	/******************************************************************
+	 *                  GETTERS AND SETTERS                           * 
+	 ******************************************************************/
+	
 	public String getSubject() {
 		return subject;
 	}
@@ -40,10 +51,24 @@ public class Triplet {
 		this.object = object;
 	}
 
+	/**
+	 * Gets the last token, normally a subject, predicate or object statement
+	 * has the following form: http://url/ontology-name#subject for example.
+	 * 
+	 * @param complete the complete statement
+	 * @param sepChar the character to split the statement ( / or # )
+	 * @return the latest part of the statement
+	 */
 	private String getLastToken(String complete, String sepChar) {
 		String[] tokens = complete.split(sepChar);
 		return tokens[tokens.length - 1];
 	}
+	
+	/*************************************************************
+	 *        Simple getters, cleans the statements and          * 
+	 *         returns only the part of the string that          *
+	 *            matters to understand the statement            *
+	 *************************************************************/
 	
 	public String getSimpleSubject() {
 		String result = null;
