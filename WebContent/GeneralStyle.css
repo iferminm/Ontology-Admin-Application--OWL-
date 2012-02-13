@@ -62,3 +62,7 @@ DIV#menuitem:hover {
 	background-color: black;
 	color: white;
 }
+
+.text {
+	border: 1px solid black;
+}
