@@ -1,7 +1,11 @@
 package com.admin.owlmanager;
 
+import java.util.ArrayList;
+
 import com.admin.config.ConfigManager;
+import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.RDFNode;
 
 
 /**
@@ -37,20 +41,30 @@ public class OntologyManager {
 		return result;
 	}
 	
-	private String[][][] populate(ResultSet rs) {
-		String[][][] result = null;
+	
+	private ArrayList<Triplet> populate(ResultSet res) {
+		ArrayList<Triplet> result = new ArrayList<Triplet>();
+		
+		while (res.hasNext()) {
+			QuerySolution qs = res.nextSolution();
+			RDFNode subject = qs.get("s");
+			RDFNode predicate = qs.get("p");
+			RDFNode object = qs.get("o");
+			
+			Triplet t = new Triplet(subject.toString(), predicate.toString(), object.toString());
+			result.add(t);
+		}
 		
 		return result;
 	}
 	
-	public String[][][] getModelAsString() {
-		String[][][] res = null;
-		ResultSet rs = VirtuosoActor.getTheInstance()
-				.getAllModel(ConfigManager.getInstance()
-						.getProperty("graphName"));
-		res = this.populate(rs);
+	public ArrayList<Triplet> getModelAsString() {
+		ResultSet res = VirtuosoActor.getTheInstance()
+							.getAllModel(ConfigManager
+							.getInstance().getProperty("graphName"));
+		ArrayList<Triplet> result = this.populate(res);
 		
-		return res;
+		return result;
 	}
 	
 	public void getTriplets() {
