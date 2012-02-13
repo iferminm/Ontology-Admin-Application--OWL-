@@ -62,6 +62,7 @@ public class OntologyManager {
 		ResultSet res = VirtuosoActor.getTheInstance()
 							.getAllModel(ConfigManager
 							.getInstance().getProperty("graphName"));
+		
 		ArrayList<Triplet> result = this.populate(res);
 		
 		return result;
