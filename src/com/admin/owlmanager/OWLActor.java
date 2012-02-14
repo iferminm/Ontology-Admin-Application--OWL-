@@ -6,11 +6,14 @@ import java.io.InputStream;
 
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 
+import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.util.FileManager;
+import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
 
 
@@ -74,5 +77,20 @@ public class OWLActor {
 			// TODO log4j
 		}
 		return res;
+	}
+	
+	public ExtendedIterator<OntClass> getClasses(String modelUrl) {
+		OntModel res = ModelFactory.createOntologyModel();
+		res.read(modelUrl);
+		
+		ExtendedIterator<OntClass> classes = res.listClasses();
+		
+		while (classes.hasNext()) {
+			OntClass current = (OntClass) classes.next();
+			System.out.println(current.toString());
+		}
+		
+		
+		return classes;
 	}
 }

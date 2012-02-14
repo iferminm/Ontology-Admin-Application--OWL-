@@ -5,10 +5,8 @@ import java.io.FileInputStream;
 import com.admin.config.ConfigManager;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
-import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 
 import virtuoso.jena.driver.VirtGraph;
 import virtuoso.jena.driver.VirtModel;
@@ -47,7 +45,7 @@ public class VirtuosoActor {
 	 *        This name will also be used for SPARQL Queries
 	 * @param label a label for the graph, usually on an URL form
 	 * 
-	 * @return
+	 * @return True is everything went ok
 	 */
 	public boolean toVirtuoso(String path, String graphName, String label) {
 		boolean res = false;

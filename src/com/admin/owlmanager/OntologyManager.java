@@ -3,6 +3,7 @@ package com.admin.owlmanager;
 import java.util.ArrayList;
 
 import com.admin.config.ConfigManager;
+import com.admin.domain.Triplet;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -69,6 +70,10 @@ public class OntologyManager {
 	}
 	
 	public void getTriplets() {
+		
+	}
+	
+	public void getClasses() {
 		
 	}
 	

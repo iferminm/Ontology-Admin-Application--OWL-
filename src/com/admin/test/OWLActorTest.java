@@ -8,6 +8,7 @@ import java.io.File;
 import org.junit.After;
 import org.junit.Test;
 
+import com.admin.config.ConfigManager;
 import com.admin.owlmanager.OWLActor;
 
 public class OWLActorTest {
@@ -31,5 +32,11 @@ public class OWLActorTest {
 				"/var/www/ontologies/reasoned_unit_testing.owl");
 		boolean success = new File("/var/www/ontologies/reasoned_unit_testing.owl").exists();
 		assertTrue("Error creating the reasoned file", res && success);
+	}
+	
+	@Test
+	public void getClassesTest() {
+		OWLActor owl = new OWLActor();
+		assertTrue("Something went wrong", owl.getClasses(ConfigManager.getInstance().getProperty("baseModelPath")) != null);
 	}
 }
