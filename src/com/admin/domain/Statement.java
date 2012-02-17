@@ -1,6 +1,6 @@
 package com.admin.domain;
 
-public class Statement {
+public class Statement implements Comparable<Statement> {
 	
 	private static final String URL_SEP_CHAR = "/";
 	private static final String NAME_SEP_CHAR = "#";
@@ -48,6 +48,13 @@ public class Statement {
 		return cleanStatement;
 	}
 	
-	
+	@Override
+	public String toString() {
+		return this.statement;
+	}
 
+	@Override
+	public int compareTo(Statement anotherStatement) {	
+		return this.cleanStatement.compareTo(anotherStatement.getCleanStatement());
+	}
 }
