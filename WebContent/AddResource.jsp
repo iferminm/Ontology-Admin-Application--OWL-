@@ -1,5 +1,5 @@
 <%@ page language="java" import="com.admin.owlmanager.OntologyManager,
-								java.util.ArrayList,
+								java.util.TreeSet,
 								com.admin.domain.*,
 								java.util.Iterator" 
 	contentType="text/html; charset=UTF-8"
@@ -50,7 +50,7 @@
 							<option value="invalid">---------------</option>
 							<%
 								OntologyManager om = new OntologyManager();
-								ArrayList<Statement> classes = om.getClasses();
+								TreeSet<Statement> classes = om.getClasses();
 								Iterator<Statement> iter = classes.iterator();
 
 								while (iter.hasNext()) {
