@@ -80,17 +80,20 @@ public class OWLActor {
 	}
 	
 	public ExtendedIterator<OntClass> getClasses(String modelUrl) {
-		OntModel res = ModelFactory.createOntologyModel();
-		res.read(modelUrl);
-		
-		ExtendedIterator<OntClass> classes = res.listClasses();
-		
-		while (classes.hasNext()) {
-			OntClass current = (OntClass) classes.next();
-			System.out.println(current.toString());
-		}
-		
-		
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelUrl);
+
+		ExtendedIterator<OntClass> classes = model.listClasses();
+
 		return classes;
+	}
+	
+	public ExtendedIterator<?> getInstances(String modelUrl, String className) {
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelUrl);
+		OntClass c = model.getOntClass(className);
+		ExtendedIterator<?> iter = c.listInstances();
+
+		return iter;
 	}
 }
