@@ -10,6 +10,8 @@ import org.junit.Test;
 
 import com.admin.config.ConfigManager;
 import com.admin.owlmanager.OWLActor;
+import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
 public class OWLActorTest {
 	
@@ -37,6 +39,16 @@ public class OWLActorTest {
 	@Test
 	public void getClassesTest() {
 		OWLActor owl = new OWLActor();
-		assertTrue("Something went wrong", owl.getClasses(ConfigManager.getInstance().getProperty("baseModelPath")) != null);
+		ExtendedIterator<OntClass> classes = owl.getClasses(ConfigManager.getInstance().getProperty("baseModelPath"));
+		assertTrue("Something went wrong",  classes.toList().size() == 11);
+	}
+	
+	@Test
+	public void getInstancesTest() {
+		OWLActor owl = new OWLActor();
+		String className = "http://localhost/ontologies/ThesisOntology.owl#KnowledgeArea";
+		ExtendedIterator<?> iter = owl.getInstances(ConfigManager.getInstance().getProperty("baseModelPath"), className);
+		
+		assertTrue("ERROR",  iter.toList().size() == 14);
 	}
 }
