@@ -1,12 +1,16 @@
 package com.admin.owlmanager;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 import com.admin.config.ConfigManager;
+import com.admin.domain.Statement;
 import com.admin.domain.Triplet;
+import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
 
 /**
@@ -73,8 +77,16 @@ public class OntologyManager {
 		
 	}
 	
-	public void getClasses() {
+	public TreeSet<Statement> getClasses() {
+		TreeSet<Statement> result = new TreeSet<Statement>();
+		ExtendedIterator<OntClass> iter = new OWLActor().getClasses(ConfigManager.getInstance().getProperty("baseModelPath"));
 		
+		while (iter.hasNext()) {
+			OntClass c = iter.next();
+			result.add(new Statement(c.toString()));
+		}
+		
+		return result;
 	}
 	
 	public void addResource() {
