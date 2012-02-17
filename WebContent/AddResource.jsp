@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" import="com.admin.owlmanager.OntologyManager,
+								java.util.ArrayList,
+								com.admin.domain.*,
+								java.util.Iterator" 
+	contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -37,6 +41,39 @@
 					<td>
 						<input class="text" type="text" name="uri" size="60" />
 					</td>
+				</tr>
+				<tr>
+					<td>Class:</td>
+					<td>
+						<select name="classes">
+							<option value="noselect">Select a class:</option>
+							<option value="invalid">---------------</option>
+							<%
+								OntologyManager om = new OntologyManager();
+								ArrayList<Statement> classes = om.getClasses();
+								Iterator<Statement> iter = classes.iterator();
+
+								while (iter.hasNext()) {
+									Statement current = iter.next();
+									out.println("<option value=\"" + 
+												current.toString() + "\">" +
+												current.getCleanStatement() + "</option>");
+								}
+							%>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Instances:</td>
+					<td>
+						<select name="instances">
+							<option value="noselect">Select an instance</option>
+							<option value="invalid">------------------</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2"><input type="submit" name="submit" value="Submit" /></td>
 				</tr>
 			</table>
 		</form>
