@@ -69,4 +69,9 @@ public class Triplet {
 	public String getSimpleObject() {
 		return this.object.getCleanStatement();
 	}
+	
+	@Override
+	public String toString() {
+		return "{ " + subject + "  " + predicate + "  " + object + " }";
+	}
 }
