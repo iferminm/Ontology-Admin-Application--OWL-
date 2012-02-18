@@ -8,7 +8,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
 <link rel="Stylesheet" href="GeneralStyle.css" type="text/css" />
+
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
