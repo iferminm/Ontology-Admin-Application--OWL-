@@ -43,6 +43,16 @@ public class VirtuosoActorTest {
 		assertTrue("Troubles getting model: ", res != null);
 	}
 	
+	@Test
+	public void executeOneResultQueryTest() {
+		String query = "SELECT * FROM <tesis:model> WHERE " + 
+				"{?s <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://localhost/ontologies/ThesisOntology.owl#KnowledgeArea> . " +
+				"?s <http://localhost/ontologies/ThesisOntology.owl#in-discipline> <http://localhost/ontologies/ThesisOntology.owl#ComputerScience>} ";
+		ResultSet res = VirtuosoActor.getTheInstance().executeOneResultQuery(ConfigManager.getInstance().getProperty("graphName"), query);
+		
+		assertTrue("Query Error", res != null);
+	}
+	
 	
 	@After
 	public void deleteGenFile() {
