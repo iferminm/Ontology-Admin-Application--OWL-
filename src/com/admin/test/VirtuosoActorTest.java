@@ -11,9 +11,7 @@ import org.junit.Test;
 import com.admin.config.ConfigManager;
 import com.admin.owlmanager.OWLActor;
 import com.admin.owlmanager.VirtuosoActor;
-import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 
 public class VirtuosoActorTest {
 
