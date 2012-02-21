@@ -21,6 +21,14 @@ import com.admin.owlmanager.OntologyManager;
 @WebServlet("/AddResourceServlet")
 public class AddResourceServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	
+	private static final String CONCEPT = "concept";
+	private static final String TOPIC = "topic";
+	private static final String UNIT = "unit";
+	private static final String KNOWLEDGE_AREA = "knowledgearea";
+	private static final String DISCIPLINE = "discipline";
+	private static final String ENTITY = "entity";
+	private static final String TOOL = "tool";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -37,31 +45,38 @@ public class AddResourceServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
-	/**
-	 * Search a requested class on a TreeSet and returns the
-	 * matching Statement instance
-	 * @param requestedClass name of the requested class
-	 * @param classes list of classes
-	 * @return the requested class' statement
-	 */
-	private Statement extractClass(String requestedClass, TreeSet<Statement> classes) {
-		
-		return null;
-	}
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	
-		OntologyManager om = new OntologyManager();
-		
-		TreeSet<Statement> classes = om.getClasses();
-		
-		
-		
 		Map<String, String[]> map = request.getParameterMap();
 		Set<String> keys = map.keySet();
+		String classToAdd = null;
+		
+		if ((keys.contains(CONCEPT)) && !(map.get(CONCEPT)[0].equalsIgnoreCase("invalid") || (map.get(CONCEPT)[0].equalsIgnoreCase("noselect")))) {
+			classToAdd = "Concept";
+		} else if ((keys.contains(TOPIC)) && !(map.get(TOPIC)[0].equalsIgnoreCase("invalid") || (map.get(TOPIC)[0].equalsIgnoreCase("noselect")))) {
+			classToAdd = "Topic";
+		} else if ((keys.contains(UNIT)) && !(map.get(UNIT)[0].equalsIgnoreCase("invalid") || (map.get(UNIT)[0].equalsIgnoreCase("noselect"))))  {
+			classToAdd = "Unit";
+		} else if ((keys.contains(KNOWLEDGE_AREA)) && !(map.get(KNOWLEDGE_AREA)[0].equalsIgnoreCase("invalid") || (map.get(KNOWLEDGE_AREA)[0].equalsIgnoreCase("noselect")))) {
+			classToAdd = "Knowledge Area";
+		} else if ((keys.contains(DISCIPLINE)) && !(map.get(DISCIPLINE)[0].equalsIgnoreCase("invalid") || (map.get(DISCIPLINE)[0].equalsIgnoreCase("noselect")))) {
+			classToAdd = "Discipline";
+		} else {
+			if ((keys.contains(ENTITY)) && !(map.get(ENTITY)[0].equalsIgnoreCase("invalid") || (map.get(ENTITY)[0].equalsIgnoreCase("noselect")))) {
+				classToAdd = "Entity";
+			} else if ((keys.contains(TOOL)) && !(map.get(TOOL)[0].equalsIgnoreCase("invalid") || (map.get(TOOL)[0].equalsIgnoreCase("noselect")))) {
+				classToAdd = "Tool";
+			} else {
+				classToAdd = "Levantamos un error";
+			}
+		}
+		
+		System.out.println("Clase: " + classToAdd);
+		
+		/*
 		Iterator<String> keysIterator = keys.iterator();
 		
 		while (keysIterator.hasNext()) {
@@ -72,7 +87,7 @@ public class AddResourceServlet extends HttpServlet {
 				System.out.print(currentValue[i]);
 			}
 			System.out.println(". ");
-		}
+		}*/
 	}
 
 }
