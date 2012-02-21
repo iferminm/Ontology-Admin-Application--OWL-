@@ -44,7 +44,7 @@
 			</div>
 		</div>
 		<div id="contentwrapper">
-		<form method="POST">
+		<form method="POST" action="AddResourceServlet">
 			<table width="80%">
 				<tr>
 					<td><b>Resource URI:</b></td>
