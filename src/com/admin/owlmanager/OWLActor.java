@@ -8,12 +8,21 @@ import org.mindswap.pellet.jena.PelletReasonerFactory;
 
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.ontology.OntProperty;
+import com.hp.hpl.jena.ontology.Ontology;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
+import com.hp.hpl.jena.rdf.model.Property;
+import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.ResourceFactory;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+import com.hp.hpl.jena.vocabulary.RDF;
 
 
 
@@ -24,6 +33,7 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
  * @author israelord
  */
 public class OWLActor {
+	private static final String NAMED_INDIVIDUAL = "http://www.w3.org/2002/07/owl#NamedIndividual";
 
 	/**
 	 * Writes an OWL model to a file on the given path
@@ -113,24 +123,74 @@ public class OWLActor {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelUrl);
 		OntClass c = model.getOntClass(className);
+	
+		model.createIndividual(uri, c);	
 		
-		model.createIndividual(uri, c);
-
 		try {
-			this.writeModel(model, "/home/israelord/Desktop/test.owl");
+			this.writeModel(model, modelPath);
 		} catch (FileNotFoundException e) {
 			// TODO: log4j
 			e.printStackTrace();
 			return false;
+		} finally {
+			model.close();
 		}
 		
 		return true;
 	}
 	
-	public boolean addTripleStore(String subject, String predicate, String object) {
+	public ExtendedIterator<OntProperty> getProperties(String modelURL) {
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelURL);
 		
+		ExtendedIterator<OntProperty> result = model.listAllOntProperties();
 		
-		return false;
+		return result;
+	}
+	
+	public boolean addTripleStore(String modelPath, String modelUrl, String subject, String predicate, String object) {
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelUrl);
+		
+//		System.out.println("SUBJECT: " + subject);
+		
+		Resource resource = model.getResource(subject);
+		Property property = model.getOntProperty(predicate);
+		RDFNode node = model.getIndividual(object);
+		
+//		System.out.println("STATEMENT: " + resource + "   " + property + "   " + node);
+		
+//		resource.addProperty(property, node);
+		
+//		StmtIterator iter = resource.listProperties();
+		
+//		System.out.println(iter.toList().size());
+		
+//		while (iter.hasNext()) {
+//			Statement current = iter.next();
+//			System.out.println("entré acá");
+//			System.out.println(current.toString());
+//		}
+		
+//		System.out.println("salí del while o nunca entré");
+		
+		Statement statement = ResourceFactory.createStatement(resource, property, node);
+		
+		model.add(statement);
+		
+//		model.add(statement);
+		
+		try {
+			this.writeModel(model, modelPath);
+		} catch (FileNotFoundException e) {
+			// TODO log4j
+			e.printStackTrace();
+			return false;
+		} finally {
+			model.close();
+		}
+		
+		return true;
 	}
 	
 }
