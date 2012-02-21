@@ -20,6 +20,7 @@
 <%
 	OntologyManager om = new OntologyManager();
 	TreeSet<Statement> classes = om.getClasses();
+	Iterator<Statement> iter = null;
 %>
 	<div id="wrapper">
 		<div id="header">
@@ -30,7 +31,7 @@
 				<p>View Ontology</p>
 			</div>
 			<div id="menuitem">
-				<p>Add Resource</p>			
+				<p>Add Resource</p>
 			</div>
 			<div id="menuitem">
 				<p>View Resource</p>			
@@ -51,34 +52,6 @@
 						<input class="text" type="text" name="uri" size="60" />
 					</td>
 				</tr>
-<!-- 				<tr>
-					<td>Class:</td>
-					<td>
-						<select name="classes" onchange="getClassInstances(this.value)">
-							<option value="noselect" selected>Select a class:</option>
-							<option value="invalid">---------------</option>
-							<%
-								Iterator<Statement> iter = classes.iterator();
-
-								while (iter.hasNext()) {
-									Statement current = iter.next();
-									out.println("<option value=\"" + 
-												current.toString() + "\">" +
-												current.getCleanStatement() + "</option>");
-								}
-							%>
-						</select>
-					</td>
-				</tr>   
-				<tr>
-					<td>Instances:</td>
-					<td id="result_instances">
-						<select name="instances">
-							<option value="noselect">Select an instance:</option>
-							<option value="invalid">-------------------</option>
-						</select>
-					</td>
-				</tr> -->
 				<tr>
 					<td colspan="2">
 						<p align="center">Annotations</p>
@@ -92,10 +65,18 @@
 					</td>
 				</tr>
 				<tr>
+					<td>Entity</td>
+					<td>
+						<select multiple name="entity" size="15">
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<td>Discipline</td>
 					<td>
 						<select multiple name="discipline" size="15" onchange="getKnowledgeAreas(this.value)">
 						<%
+							// Filling the discipline select box 
 							out.write("<option value=\"noselect\">No Selection</option>");
 							iter = classes.iterator();
 							Statement dis = null;
@@ -120,28 +101,28 @@
 				<tr>
 					<td>Knowledge Area</td>
 					<td id="result_knowledge_area">
-						<select name="knowledgearea" size="15" multiple onchange="get_units(this.value)">
+						<select multiple name="knowledgearea" size="15" onchange="get_units(this.value)">
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Unit</td>
 					<td id="result_unit">
-						<select name="unit" size="15" multiple onchange="">
+						<select multiple name="unit" size="15" onchange="get_topics(this.value)">
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Topic</td>
 					<td id="result_topic">
-						<select name="topic" size="15" multiple onchange="get_concept">
+						<select multiple name="topic" size="15" onchange="get_concepts(this.value)">
 						</select>
 					</td>
 				</tr>
 				<tr>
 					<td>Concept</td>
 					<td id="result_concept">
-						<select name="concept" size="15" multiple>
+						<select multiple name="concept" size="15">
 						</select>
 					</td>
 				</tr>
@@ -152,6 +133,5 @@
 		</form>
 		</div>
 	</div>
-
 </body>
 </html>

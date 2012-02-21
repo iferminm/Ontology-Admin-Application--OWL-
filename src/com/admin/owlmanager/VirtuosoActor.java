@@ -5,10 +5,8 @@ import java.io.FileInputStream;
 import com.admin.config.ConfigManager;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryFactory;
-import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.Model;
-import com.hp.hpl.jena.rdf.model.RDFNode;
 
 import virtuoso.jena.driver.VirtGraph;
 import virtuoso.jena.driver.VirtModel;
@@ -109,6 +107,13 @@ public class VirtuosoActor {
 		return res;
 	}
 	
+	/**
+	 * Executes a query which returns only one variable of the triplet, a select 
+	 * with the following.
+	 * @param graphName 
+	 * @param query
+	 * @return 
+	 */
 	public ResultSet executeOneResultQuery(String graphName, String query) {
 		Query sparql = QueryFactory.create(query);
 		VirtGraph graph = this.connect(graphName);
