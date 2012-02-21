@@ -207,8 +207,9 @@ public class OntologyManager {
 		return null;
 	}
 	
-	public void addResource() {
+	public boolean addResource(String resource, String[] anotations) {
 		
+		return false;
 	}
 	
 	public void removeResource() {
