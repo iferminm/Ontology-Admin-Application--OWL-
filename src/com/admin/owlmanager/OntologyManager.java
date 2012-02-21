@@ -8,6 +8,7 @@ import com.admin.config.ConfigManager;
 import com.admin.domain.Statement;
 import com.admin.domain.Triplet;
 import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
@@ -220,6 +221,34 @@ public class OntologyManager {
 		return null;
 	}
 	
+	private TreeSet<Statement> getAllProperties() {
+		TreeSet<Statement> result = new TreeSet<Statement>();
+		OWLActor owl = new OWLActor();
+		ExtendedIterator<OntProperty> iter = owl.getProperties(ConfigManager.getInstance().getProperty("baseModelPath"));
+		
+		while (iter.hasNext()) {
+			OntProperty current = iter.next();
+			result.add(new Statement(current.toString()));
+		}
+		
+		return result;
+	}
+	
+	private Statement getSinglePropertyClean(String cleanName) {
+		TreeSet<Statement> properties = this.getAllProperties();
+		Statement result = null;
+		Iterator<Statement> iter = properties.iterator();
+		
+		while (iter.hasNext()) {
+			result = iter.next();
+			if (result.getCleanStatement().equals(cleanName)) {
+				break;
+			}
+		}
+		
+		return result;
+	}
+		
 	/**
 	 * Adds a resource and its annotations to the OWL model
 	 * @param resource resource to be added
@@ -231,8 +260,20 @@ public class OntologyManager {
 		String modelURL = ConfigManager.getInstance().getProperty("baseModelPath");
 		OWLActor owl = new OWLActor();
 		Statement cls = this.getSingleClassClean("resource");
-		boolean result = owl.addIndividual(writeModelPath, modelURL, resource, cls.getStatement());
-		return result;
+		Statement relation = this.getSinglePropertyClean("has-annotation");
+		
+		//System.out.print("Relation: " + relation.getStatement());
+		
+		boolean resultIndividual = owl.addIndividual(writeModelPath, modelURL, resource, cls.getStatement());
+		boolean resultTriples = true;
+		
+		
+		for (int i = 0; i < anotations.length; i++) {
+			resultTriples = resultTriples && owl.addTripleStore(writeModelPath, modelURL, resource, relation.getStatement(), anotations[i]);
+//			System.out.println(anotations[i]);
+		}
+		
+		return resultIndividual && resultTriples;
 	}
 	
 	public void removeResource() {
