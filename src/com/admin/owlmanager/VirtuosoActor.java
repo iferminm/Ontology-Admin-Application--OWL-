@@ -81,7 +81,7 @@ public class VirtuosoActor {
 	/**
 	 * Gets a connection through Virtuoso
 	 * @param graphName
-	 * @return
+	 * @return a VirtGraph connection resource
 	 */
 	private VirtGraph connect(String graphName) {
 		return new VirtGraph (graphName, connection, user, pwd);
@@ -112,7 +112,7 @@ public class VirtuosoActor {
 	 * with the following.
 	 * @param graphName 
 	 * @param query
-	 * @return 
+	 * @return the query's ResultSet
 	 */
 	public ResultSet executeOneResultQuery(String graphName, String query) {
 		Query sparql = QueryFactory.create(query);
