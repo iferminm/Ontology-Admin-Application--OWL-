@@ -207,6 +207,12 @@ public class OntologyManager {
 		return null;
 	}
 	
+	/**
+	 * Adds a resource and its annotations to the OWL model
+	 * @param resource resource to be added
+	 * @param anotations selected annotations
+	 * @return True if everything went ok
+	 */
 	public boolean addResource(String resource, String[] anotations) {
 		
 		return false;
