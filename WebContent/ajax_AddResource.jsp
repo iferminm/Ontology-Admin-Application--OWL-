@@ -8,9 +8,23 @@
 <%
 
 OntologyManager om = new OntologyManager();
+
+/*
+	Type is the target ontology class we're
+	asking for their instances
+*/
 String type = request.getParameter("type");
+/*
+	Name is the name of the superior class instance
+*/
 String name = request.getParameter("name");
+/*
+	Relation we want to query
+*/
 String relation = request.getParameter("relation");
+/*
+	Name of the method to get data for the next select
+*/
 String next = request.getParameter("next");
 
 String rdfPrefix = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
@@ -20,6 +34,7 @@ TreeSet<Statement> classes = om.getClasses();
 Statement targetClass = null;
 Iterator<Statement> classIterator = classes.iterator();
 
+// We get the complete name for the target class we want instances from
 while (classIterator.hasNext()) {
 	targetClass = classIterator.next();
 	if (targetClass.getCleanStatement().equalsIgnoreCase(name)) {
@@ -27,13 +42,15 @@ while (classIterator.hasNext()) {
 	}
 }
 
+// Building the query conditions
 String conditions = "?s <" + rdfPrefix +  "type> <" + thesisPrefix + type + "> . " +
 					"?s <" + thesisPrefix + relation + "> <" + name + ">";
 
+// Getting the ResultSet as a TreeSet<Statement>
 TreeSet<Statement> options = om.oneResultQuery("?s", conditions);
-					
+
 out.println("<select multiple name=\"" + type.toLowerCase() + "\" size=\"15\" onchange=\"" + next + "(this.value)\">");
- 
+// Filling the select with the query result set 
 if (options.size() > 0) {
 	Iterator<Statement> iter = options.iterator();
 	out.println("<option selected value=\"noselect\">No Selection</option>");
