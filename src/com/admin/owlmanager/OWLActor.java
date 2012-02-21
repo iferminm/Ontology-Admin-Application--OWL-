@@ -109,10 +109,22 @@ public class OWLActor {
 		return iter;
 	}
 	
-	public boolean addIndividual(String uri, String cls) {
+	public boolean addIndividual(String modelPath, String modelUrl, String uri, String className) {
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelUrl);
+		OntClass c = model.getOntClass(className);
 		
+		model.createIndividual(uri, c);
+
+		try {
+			this.writeModel(model, "/home/israelord/Desktop/test.owl");
+		} catch (FileNotFoundException e) {
+			// TODO: log4j
+			e.printStackTrace();
+			return false;
+		}
 		
-		return false;
+		return true;
 	}
 	
 	public boolean addTripleStore(String subject, String predicate, String object) {

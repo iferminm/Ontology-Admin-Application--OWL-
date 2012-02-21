@@ -13,7 +13,6 @@ import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
-
 /**
  * This class manages all that has to do with the ontology
  * 
@@ -207,6 +206,20 @@ public class OntologyManager {
 		return null;
 	}
 	
+	public Statement getSingleClassClean(String requestedClassClean) {
+		TreeSet<Statement> classes = this.getClasses();
+		Iterator<Statement> iter = classes.iterator();
+		
+		while (iter.hasNext()) {
+			Statement current = iter.next();
+			if (current.getCleanStatement().equalsIgnoreCase(requestedClassClean)) {
+				return current;
+			}
+		}
+		
+		return null;
+	}
+	
 	/**
 	 * Adds a resource and its annotations to the OWL model
 	 * @param resource resource to be added
@@ -214,8 +227,12 @@ public class OntologyManager {
 	 * @return True if everything went ok
 	 */
 	public boolean addResource(String resource, String[] anotations) {
-		
-		return false;
+		String writeModelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
+		String modelURL = ConfigManager.getInstance().getProperty("baseModelPath");
+		OWLActor owl = new OWLActor();
+		Statement cls = this.getSingleClassClean("resource");
+		boolean result = owl.addIndividual(writeModelPath, modelURL, resource, cls.getStatement());
+		return result;
 	}
 	
 	public void removeResource() {
