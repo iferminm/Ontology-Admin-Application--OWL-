@@ -33,8 +33,13 @@ public class OntologyManagerTest {
 	@Test
 	public final void addResourceTest() {
 		OntologyManager om = new OntologyManager();
-		boolean result = om.addResource("http://iferminmontilla.net", null);
-		assertTrue("Resource not added", result);
+		String[] annotations = {"http://localhost/ontologies/ThesisOntology.owl#DataLinkLayerConcepts"};
+		boolean result = om.addResource("http://iferminmontilla.net", annotations);
+		String[] annotations2 = {"http://localhost/ontologies/ThesisOntology.owl#DatabaseModeling", 
+				"http://localhost/ontologies/ThesisOntology.owl#FundamentalDataStructures", 
+				"http://localhost/ontologies/ThesisOntology.owl#DatabaseSystems"};
+		boolean result2 = new OntologyManager().addResource("http://www.w3c.owr", annotations2);
+		assertTrue("Resource not added", result && result2);
 	}
 
 }
