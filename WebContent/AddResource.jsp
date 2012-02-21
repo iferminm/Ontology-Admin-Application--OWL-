@@ -1,9 +1,10 @@
-<%@ page language="java" import="com.admin.owlmanager.OntologyManager,
-								java.util.TreeSet,
-								com.admin.domain.*,
-								java.util.Iterator" 
-	contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" %>
+<%@ page import="com.admin.owlmanager.OntologyManager" %>
+<%@ page import="java.util.TreeSet" %>
+<%@ page import="com.admin.domain.*" %>
+<%@ page import="java.util.Iterator" %> 
+<%@ page contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,9 +12,15 @@
 
 <link rel="Stylesheet" href="css/GeneralStyle.css" type="text/css" />
 
+<script language="JavaScript" type="text/javascript" src="js/selectbox_chainning.js"></script>
+
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
+<%
+	OntologyManager om = new OntologyManager();
+	TreeSet<Statement> classes = om.getClasses();
+%>
 	<div id="wrapper">
 		<div id="header">
 			<p> Este es el header</p>
@@ -36,7 +43,7 @@
 			</div>
 		</div>
 		<div id="contentwrapper">
-		<form>
+		<form method="POST">
 			<table width="80%">
 				<tr>
 					<td><b>Resource URI:</b></td>
@@ -44,15 +51,13 @@
 						<input class="text" type="text" name="uri" size="60" />
 					</td>
 				</tr>
-				<tr>
+<!-- 				<tr>
 					<td>Class:</td>
 					<td>
-						<select name="classes">
-							<option value="noselect">Select a class:</option>
+						<select name="classes" onchange="getClassInstances(this.value)">
+							<option value="noselect" selected>Select a class:</option>
 							<option value="invalid">---------------</option>
 							<%
-								OntologyManager om = new OntologyManager();
-								TreeSet<Statement> classes = om.getClasses();
 								Iterator<Statement> iter = classes.iterator();
 
 								while (iter.hasNext()) {
@@ -64,13 +69,79 @@
 							%>
 						</select>
 					</td>
-				</tr>
+				</tr>   
 				<tr>
 					<td>Instances:</td>
-					<td>
+					<td id="result_instances">
 						<select name="instances">
-							<option value="noselect">Select an instance</option>
-							<option value="invalid">------------------</option>
+							<option value="noselect">Select an instance:</option>
+							<option value="invalid">-------------------</option>
+						</select>
+					</td>
+				</tr> -->
+				<tr>
+					<td colspan="2">
+						<p align="center">Annotations</p>
+					</td>
+				</tr>
+				<tr>
+					<td>Tool</td>
+					<td>
+						<select multiple name="tool" size="15">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Discipline</td>
+					<td>
+						<select multiple name="discipline" size="15" onchange="getKnowledgeAreas(this.value)">
+						<%
+							out.write("<option value=\"noselect\">No Selection</option>");
+							iter = classes.iterator();
+							Statement dis = null;
+							while (iter.hasNext()) {
+								dis = iter.next();
+								if (dis.getCleanStatement().equalsIgnoreCase("discipline")) {
+									break;
+								}
+							}
+							TreeSet<Statement> disciplines = om.getClassInstances(dis.getStatement());
+							iter = disciplines.iterator();
+							while (iter.hasNext()) {
+								Statement current = iter.next();
+								out.println("<option value=\"" + current.getStatement() + "\">" + 
+											current.getCleanStatement() + "</option>");
+							
+							}
+						%>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Knowledge Area</td>
+					<td id="result_knowledge_area">
+						<select name="knowledgearea" size="15" multiple onchange="get_units(this.value)">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Unit</td>
+					<td id="result_unit">
+						<select name="unit" size="15" multiple onchange="">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Topic</td>
+					<td id="result_topic">
+						<select name="topic" size="15" multiple onchange="get_concept">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Concept</td>
+					<td id="result_concept">
+						<select name="concept" size="15" multiple>
 						</select>
 					</td>
 				</tr>

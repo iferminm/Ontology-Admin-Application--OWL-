@@ -66,3 +66,7 @@ DIV#menuitem:hover {
 .text {
 	border: 1px solid black;
 }
+
+SELECT {
+	min-width: 300px;
+}
