@@ -1,7 +1,9 @@
 package com.admin.servlet;
 
 import java.io.IOException;
-import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,10 +37,20 @@ public class AddResourceServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Enumeration<String> paramNames = request.getParameterNames();
 		
-		while (paramNames.hasMoreElements()) {
-			System.out.println(paramNames.nextElement());
+		
+		Map<String, String[]> map = request.getParameterMap();
+		Set<String> keys = map.keySet();
+		Iterator<String> keysIterator = keys.iterator();
+		
+		while (keysIterator.hasNext()) {
+			String currentKey = keysIterator.next();
+			System.out.print(currentKey + " --> ");
+			String[] currentValue = map.get(currentKey);
+			for (int i = 0; i < currentValue.length; i++) {
+				System.out.print(currentValue[i]);
+			}
+			System.out.println(". ");
 		}
 	}
 
