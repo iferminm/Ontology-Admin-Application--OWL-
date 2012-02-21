@@ -31,7 +31,7 @@
 				<p>View Ontology</p>
 			</div>
 			<div id="menuitem">
-				<p>Add Resource</p>
+				<p><a href="PreAddResource.html">Add Resource</a></p>
 			</div>
 			<div id="menuitem">
 				<p>View Resource</p>			
