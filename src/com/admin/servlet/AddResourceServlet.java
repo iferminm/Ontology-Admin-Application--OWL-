@@ -100,15 +100,18 @@ public class AddResourceServlet extends HttpServlet {
 		String uri = this.validateResourceURI(map);
 		
 		if (uri != null) {
-			String[] valuesToAdd = this.unpackValues(map);
-			if (valuesToAdd == null) {
+			String[] selectedAnotations = this.unpackValues(map);
+			if (selectedAnotations == null) {
 				PrintWriter writer = response.getWriter();
 				writer.write("<p><a href=\"PreAddResource.html\">You must select at least one annotation for the resource: " +
 							uri + "</a></p>");
+			} else {
+				OntologyManager om = new OntologyManager();
+				boolean result = om.addResource(uri, selectedAnotations);
 			}
 			
-			for (int i = 0; i < valuesToAdd.length; i++) {
-				System.out.println(valuesToAdd[i]);
+			for (int i = 0; i < selectedAnotations.length; i++) {
+				System.out.println(selectedAnotations[i]);
 			}
 			System.out.println("URI: " + uri);
 		} else {
