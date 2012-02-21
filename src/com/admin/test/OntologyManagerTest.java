@@ -29,5 +29,12 @@ public class OntologyManagerTest {
 		
 		assertTrue("Query Error", result.size() == 14);
 	}
+	
+	@Test
+	public final void addResourceTest() {
+		OntologyManager om = new OntologyManager();
+		boolean result = om.addResource("http://iferminmontilla.net", null);
+		assertTrue("Resource not added", result);
+	}
 
 }
