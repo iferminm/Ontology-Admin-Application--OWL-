@@ -4,12 +4,16 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.admin.domain.Statement;
+import com.admin.owlmanager.OntologyManager;
 
 /**
  * Servlet implementation class AddResourceServlet
@@ -34,9 +38,26 @@ public class AddResourceServlet extends HttpServlet {
 	}
 
 	/**
+	 * Search a requested class on a TreeSet and returns the
+	 * matching Statement instance
+	 * @param requestedClass name of the requested class
+	 * @param classes list of classes
+	 * @return the requested class' statement
+	 */
+	private Statement extractClass(String requestedClass, TreeSet<Statement> classes) {
+		
+		return null;
+	}
+	
+	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		OntologyManager om = new OntologyManager();
+		
+		TreeSet<Statement> classes = om.getClasses();
+		
 		
 		
 		Map<String, String[]> map = request.getParameterMap();
