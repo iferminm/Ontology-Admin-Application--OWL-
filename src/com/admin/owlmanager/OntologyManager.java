@@ -1,6 +1,7 @@
 package com.admin.owlmanager;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 import com.admin.config.ConfigManager;
@@ -87,6 +88,51 @@ public class OntologyManager {
 		}
 		
 		return result;
+	}
+	
+	public TreeSet<Statement> getClassInstances(String className) {
+		TreeSet<Statement> result = new TreeSet<Statement>();
+		ExtendedIterator<?> iter = new OWLActor().getInstances(ConfigManager.getInstance()
+													.getProperty("baseModelPath"), className);
+		while (iter.hasNext()) {
+			Object i = iter.next();
+			result.add(new Statement(i.toString()));
+		}
+		
+		return result;
+	}
+	
+	private ArrayList<String> getVarNames (QuerySolution sol) {
+		Iterator<String> iter = sol.varNames();
+		ArrayList<String> result = new ArrayList<String>();
+		while (iter.hasNext()) {
+			String current = iter.next();
+			result.add(current);
+		}
+		return result;
+	}
+	
+	private TreeSet<Statement> populateOneResult(ResultSet rs) {
+		TreeSet<Statement> result = new TreeSet<Statement>();
+		
+		while (rs.hasNext()) {
+			QuerySolution solution = rs.nextSolution();
+			String varName = this.getVarNames(solution).get(1);
+			RDFNode node = solution.get(varName);
+			result.add(new Statement(node.toString()));
+		}
+		
+		return result;
+	}
+	
+	public TreeSet<Statement> oneResultQuery(String select, String whereConditions) {
+		String graphName = ConfigManager.getInstance().getProperty("graphName");
+		
+		String query = "SELECT " + select + " FROM <" + graphName + "> WHERE { " + whereConditions + " }";
+		
+		ResultSet res = VirtuosoActor.getTheInstance().executeOneResultQuery(graphName, query);
+		
+		return this.populateOneResult(res);
 	}
 	
 	public void addResource() {
