@@ -96,16 +96,25 @@ public class AddResourceServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String, String[]> map = request.getParameterMap();
+		response.setContentType("text/html");
 		String uri = this.validateResourceURI(map);
 		
 		if (uri != null) {
 			String[] valuesToAdd = this.unpackValues(map);
-			System.out.println(valuesToAdd);
+			if (valuesToAdd == null) {
+				PrintWriter writer = response.getWriter();
+				writer.write("<p><a href=\"PreAddResource.html\">You must select at least one annotation for the resource: " +
+							uri + "</a></p>");
+			}
+			
+			for (int i = 0; i < valuesToAdd.length; i++) {
+				System.out.println(valuesToAdd[i]);
+			}
 			System.out.println("URI: " + uri);
 		} else {
-			response.setContentType("text/html");
 			PrintWriter writer = response.getWriter();
 			writer.println("<p><a href=\"PreAddResource.html\">Invalid URL</a></p>");
+			writer.close();
 		}
 		
 		
