@@ -1,6 +1,7 @@
 package com.admin.servlet;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -102,7 +103,9 @@ public class AddResourceServlet extends HttpServlet {
 			System.out.println(valuesToAdd);
 			System.out.println("URI: " + uri);
 		} else {
-			System.out.println("URI: " + uri);
+			response.setContentType("text/html");
+			PrintWriter writer = response.getWriter();
+			writer.println("<p><a href=\"PreAddResource.html\">Invalid URL</a></p>");
 		}
 		
 		
