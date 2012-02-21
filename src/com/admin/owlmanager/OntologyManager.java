@@ -188,13 +188,21 @@ public class OntologyManager {
 	}
 	
 	/**
-	 * Search a requested class on a TreeSet and returns the
+	 * Search a requested class and returns the
 	 * matching Statement instance
 	 * @param requestedClass name of the requested class
-	 * @param classes list of classes
 	 * @return the requested class' statement
 	 */
-	public Statement getSingleClass(String requestedClass, TreeSet<Statement> classes) {
+	public Statement getSingleClass(String requestedClass) {
+		TreeSet<Statement> classes = this.getClasses();
+		Iterator<Statement> iter = classes.iterator();
+		
+		while (iter.hasNext()) {
+			Statement current = iter.next();
+			if (current.getStatement().equalsIgnoreCase(requestedClass)) {
+				return current;
+			}
+		}
 		
 		return null;
 	}
