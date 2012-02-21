@@ -57,20 +57,10 @@
 						<p align="center">Annotations</p>
 					</td>
 				</tr>
-				<tr>
-					<td>Tool</td>
-					<td>
-						<select multiple name="tool" size="15">
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Entity</td>
-					<td>
-						<select multiple name="entity" size="15">
-						</select>
-					</td>
-				</tr>
+				<%
+					String contentType = request.getParameter("add");
+					if (contentType.equalsIgnoreCase("knowledge")) {
+				%>
 				<tr>
 					<td>Discipline</td>
 					<td>
@@ -126,6 +116,26 @@
 						</select>
 					</td>
 				</tr>
+				<%
+					} else {    // End adding knowledge and begin adding other
+				%>
+				<tr>
+					<td>Tool</td>
+					<td>
+						<select multiple name="tool" size="15">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Entity</td>
+					<td>
+						<select multiple name="entity" size="15">
+						</select>
+					</td>
+				</tr>
+				<%
+					} // End adding other
+				%>
 				<tr>
 					<td colspan="2"><input type="submit" name="submit" value="Submit" /></td>
 				</tr>
