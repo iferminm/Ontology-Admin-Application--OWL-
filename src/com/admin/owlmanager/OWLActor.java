@@ -108,4 +108,17 @@ public class OWLActor {
 
 		return iter;
 	}
+	
+	public boolean addIndividual(String uri, String cls) {
+		
+		
+		return false;
+	}
+	
+	public boolean addTripleStore(String subject, String predicate, String object) {
+		
+		
+		return false;
+	}
+	
 }
