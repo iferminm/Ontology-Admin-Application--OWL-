@@ -9,7 +9,6 @@ import org.mindswap.pellet.jena.PelletReasonerFactory;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
-import com.hp.hpl.jena.ontology.Ontology;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.InfModel;
 import com.hp.hpl.jena.rdf.model.ModelFactory;
@@ -18,11 +17,9 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
-import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
-import com.hp.hpl.jena.vocabulary.RDF;
 
 
 
@@ -33,7 +30,7 @@ import com.hp.hpl.jena.vocabulary.RDF;
  * @author israelord
  */
 public class OWLActor {
-	private static final String NAMED_INDIVIDUAL = "http://www.w3.org/2002/07/owl#NamedIndividual";
+
 
 	/**
 	 * Writes an OWL model to a file on the given path
@@ -119,6 +116,15 @@ public class OWLActor {
 		return iter;
 	}
 	
+	/**
+	 * Add an individual or instance on a given class
+	 * 
+	 * @param modelPath write model address
+	 * @param modelUrl model uel
+	 * @param uri resource to be added
+	 * @param className class where we'll add the individual
+	 * @return true if everything went ok
+	 */
 	public boolean addIndividual(String modelPath, String modelUrl, String uri, String className) {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelUrl);
@@ -139,6 +145,11 @@ public class OWLActor {
 		return true;
 	}
 	
+	/**
+	 * Gets all properties on a given model
+	 * @param modelURL model URL
+	 * @return an iterator with the properties
+	 */
 	public ExtendedIterator<OntProperty> getProperties(String modelURL) {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelURL);
@@ -148,37 +159,26 @@ public class OWLActor {
 		return result;
 	}
 	
+	/**
+	 * Adds a Statement to a given model
+	 * @param modelPath write model path
+	 * @param modelUrl model url
+	 * @param subject Subject element of the triple
+	 * @param predicate Predicate element of the triple
+	 * @param object Object element of the triple
+	 * @return True if everything went ok
+	 */
 	public boolean addTripleStore(String modelPath, String modelUrl, String subject, String predicate, String object) {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelUrl);
-		
-//		System.out.println("SUBJECT: " + subject);
 		
 		Resource resource = model.getResource(subject);
 		Property property = model.getOntProperty(predicate);
 		RDFNode node = model.getIndividual(object);
 		
-//		System.out.println("STATEMENT: " + resource + "   " + property + "   " + node);
-		
-//		resource.addProperty(property, node);
-		
-//		StmtIterator iter = resource.listProperties();
-		
-//		System.out.println(iter.toList().size());
-		
-//		while (iter.hasNext()) {
-//			Statement current = iter.next();
-//			System.out.println("entré acá");
-//			System.out.println(current.toString());
-//		}
-		
-//		System.out.println("salí del while o nunca entré");
-		
 		Statement statement = ResourceFactory.createStatement(resource, property, node);
 		
 		model.add(statement);
-		
-//		model.add(statement);
 		
 		try {
 			this.writeModel(model, modelPath);
