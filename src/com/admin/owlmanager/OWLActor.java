@@ -78,7 +78,12 @@ public class OWLActor {
 		}
 		return res;
 	}
-	
+
+	/**
+	 * Gets all classes available on the model
+	 * @param modelUrl the location of the owl model
+	 * @return a list of classes
+	 */
 	public ExtendedIterator<OntClass> getClasses(String modelUrl) {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelUrl);
@@ -88,6 +93,13 @@ public class OWLActor {
 		return classes;
 	}
 	
+	/**
+	 * Gets all available instances of a given class
+	 * 
+	 * @param modelUrl the location of the owl model
+	 * @param className the name of the class
+	 * @return the list of instances for the given class
+	 */
 	public ExtendedIterator<?> getInstances(String modelUrl, String className) {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelUrl);
