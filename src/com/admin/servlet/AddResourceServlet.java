@@ -29,6 +29,7 @@ public class AddResourceServlet extends HttpServlet {
 	private static final String DISCIPLINE = "discipline";
 	private static final String ENTITY = "entity";
 	private static final String TOOL = "tool";
+	private static final String URL = "uri";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -45,36 +46,66 @@ public class AddResourceServlet extends HttpServlet {
 		doPost(request, response);
 	}
 
+	/**
+	 * Unpacks the values to be added as annotation
+	 * to the target resource
+	 * @param map the request's parameter map
+	 * @return the String[] of values to be added
+	 */
+	private String[] unpackValues(Map<String, String[]> map) {
+		
+		Set<String> keys = map.keySet();
+		String[] result = null;
+		
+		if ((keys.contains(CONCEPT)) && !(map.get(CONCEPT)[0].equalsIgnoreCase("invalid") || (map.get(CONCEPT)[0].equalsIgnoreCase("noselect")))) {
+			result = map.get(CONCEPT);
+		} else if ((keys.contains(TOPIC)) && !(map.get(TOPIC)[0].equalsIgnoreCase("invalid") || (map.get(TOPIC)[0].equalsIgnoreCase("noselect")))) {
+			result = map.get(TOPIC);
+		} else if ((keys.contains(UNIT)) && !(map.get(UNIT)[0].equalsIgnoreCase("invalid") || (map.get(UNIT)[0].equalsIgnoreCase("noselect"))))  {
+			result = map.get(UNIT);
+		} else if ((keys.contains(KNOWLEDGE_AREA)) && !(map.get(KNOWLEDGE_AREA)[0].equalsIgnoreCase("invalid") || (map.get(KNOWLEDGE_AREA)[0].equalsIgnoreCase("noselect")))) {
+			result = map.get(KNOWLEDGE_AREA);
+		} else if ((keys.contains(DISCIPLINE)) && !(map.get(DISCIPLINE)[0].equalsIgnoreCase("invalid") || (map.get(DISCIPLINE)[0].equalsIgnoreCase("noselect")))) {
+			result = map.get(DISCIPLINE);
+		} else {
+			if ((keys.contains(ENTITY)) && !(map.get(ENTITY)[0].equalsIgnoreCase("invalid") || (map.get(ENTITY)[0].equalsIgnoreCase("noselect")))) {
+				result = map.get(ENTITY);
+			} else if ((keys.contains(TOOL)) && !(map.get(TOOL)[0].equalsIgnoreCase("invalid") || (map.get(TOOL)[0].equalsIgnoreCase("noselect")))) {
+				result = map.get(TOOL);
+			}
+		}
+		
+		return result;
+	}
+	
+	private String validateResourceURI(Map<String, String[]> map) {
+		String result = null;
+		Set<String> keys = map.keySet();
+		if ((keys.contains(URL)) && (!map.get(URL)[0].isEmpty())) {
+			String possibleURI = map.get(URL)[0];
+			if (possibleURI.startsWith("http://")) {
+				result = possibleURI;
+			}
+		}
+		return result;
+	}
 	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Map<String, String[]> map = request.getParameterMap();
-		Set<String> keys = map.keySet();
-		String classToAdd = null;
+		String uri = this.validateResourceURI(map);
 		
-		if ((keys.contains(CONCEPT)) && !(map.get(CONCEPT)[0].equalsIgnoreCase("invalid") || (map.get(CONCEPT)[0].equalsIgnoreCase("noselect")))) {
-			classToAdd = "Concept";
-		} else if ((keys.contains(TOPIC)) && !(map.get(TOPIC)[0].equalsIgnoreCase("invalid") || (map.get(TOPIC)[0].equalsIgnoreCase("noselect")))) {
-			classToAdd = "Topic";
-		} else if ((keys.contains(UNIT)) && !(map.get(UNIT)[0].equalsIgnoreCase("invalid") || (map.get(UNIT)[0].equalsIgnoreCase("noselect"))))  {
-			classToAdd = "Unit";
-		} else if ((keys.contains(KNOWLEDGE_AREA)) && !(map.get(KNOWLEDGE_AREA)[0].equalsIgnoreCase("invalid") || (map.get(KNOWLEDGE_AREA)[0].equalsIgnoreCase("noselect")))) {
-			classToAdd = "Knowledge Area";
-		} else if ((keys.contains(DISCIPLINE)) && !(map.get(DISCIPLINE)[0].equalsIgnoreCase("invalid") || (map.get(DISCIPLINE)[0].equalsIgnoreCase("noselect")))) {
-			classToAdd = "Discipline";
+		if (uri != null) {
+			String[] valuesToAdd = this.unpackValues(map);
+			System.out.println(valuesToAdd);
+			System.out.println("URI: " + uri);
 		} else {
-			if ((keys.contains(ENTITY)) && !(map.get(ENTITY)[0].equalsIgnoreCase("invalid") || (map.get(ENTITY)[0].equalsIgnoreCase("noselect")))) {
-				classToAdd = "Entity";
-			} else if ((keys.contains(TOOL)) && !(map.get(TOOL)[0].equalsIgnoreCase("invalid") || (map.get(TOOL)[0].equalsIgnoreCase("noselect")))) {
-				classToAdd = "Tool";
-			} else {
-				classToAdd = "Levantamos un error";
-			}
+			System.out.println("URI: " + uri);
 		}
 		
-		System.out.println("Clase: " + classToAdd);
+		
 		
 		/*
 		Iterator<String> keysIterator = keys.iterator();
