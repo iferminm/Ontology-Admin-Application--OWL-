@@ -49,7 +49,15 @@ String conditions = "?s <" + rdfPrefix +  "type> <" + thesisPrefix + type + "> .
 // Getting the ResultSet as a TreeSet<Statement>
 TreeSet<Statement> options = om.oneResultQuery("?s", conditions);
 
-out.println("<select multiple name=\"" + type.toLowerCase() + "\" size=\"15\" onchange=\"" + next + "(this.value)\">");
+String select = "<select multiple name=\"" + type.toLowerCase() + "\" size=\"15\"";
+
+if (!next.equalsIgnoreCase("none")) {
+	select += "onchange=\"" + next + "(this.value)\"";
+}
+
+select += ">";
+
+out.println(select);
 // Filling the select with the query result set 
 if (options.size() > 0) {
 	Iterator<Statement> iter = options.iterator();
