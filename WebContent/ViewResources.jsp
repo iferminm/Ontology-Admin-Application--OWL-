@@ -34,10 +34,23 @@
 			</div>
 		</div>
 		<div id="contentwrapper">
+			<h2 align="center">Available Resources</h2>
+			<br />
 			<%
+				final String RESOURCE_CLASS = "http://localhost/ontologies/ThesisOntology.owl#Resource";
 				OntologyManager om = new OntologyManager();
-				
-				TreeSet<Statement> resources = null;
+				TreeSet<Statement> resources = om.getClassInstances(RESOURCE_CLASS);
+				Iterator<Statement> iter = resources.iterator();
+				out.write("<table width=\"100%\">");
+				while (iter.hasNext()) {
+					String text = iter.next().toString();
+					out.write("<tr>");
+					out.write("<td>");
+					out.write("<p align=\"center\"><a href=\"EditResource.jsp?id=" + text + "\">" + text + "</a></p>");
+					out.write("</td>");
+					out.write("</tr>");
+				}
+				out.write("</table>");
 			%>
 		</div>
 	</div>
