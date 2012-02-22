@@ -38,8 +38,16 @@ public class OntologyManagerTest {
 		String[] annotations2 = {"http://localhost/ontologies/ThesisOntology.owl#DatabaseModeling", 
 				"http://localhost/ontologies/ThesisOntology.owl#FundamentalDataStructures", 
 				"http://localhost/ontologies/ThesisOntology.owl#DatabaseSystems"};
-		boolean result2 = new OntologyManager().addResource("http://www.w3c.owr", annotations2);
+		boolean result2 = new OntologyManager().addResource("http://www.w3c.org", annotations2);
 		assertTrue("Resource not added", result && result2);
 	}
-
+	
+	@Test
+	public final void deleteResourceTest() {
+		OntologyManager om = new OntologyManager();
+		boolean result = om.deleteResource("http://iferminmontilla.net");
+		boolean result2 = om.deleteResource("http://www.w3c.org");
+		
+		assertTrue("Errors deleting requested resource", result && result2);
+	}
 }
