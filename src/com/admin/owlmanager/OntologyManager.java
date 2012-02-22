@@ -30,7 +30,8 @@ public class OntologyManager {
 	 * @param graphName given graph
 	 * @return True if everything went ok
 	 */
-	public boolean deleteOntology(String graphName) {
+	public boolean deleteOntology() {
+		String graphName = ConfigManager.getInstance().getProperty("graphName");
 		return VirtuosoActor.getTheInstance().deleteGraph(graphName);
 	}
 	
@@ -267,7 +268,10 @@ public class OntologyManager {
 	
 	public boolean deleteResource(String resourceURI) {
 		boolean result = false;
-		
+		OWLActor owl = new OWLActor();
+		String modelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
+		String modelUrl = ConfigManager.getInstance().getProperty("baseModelPath");
+		result = owl.deleteIndividual(modelPath, modelUrl, resourceURI);
 		return result;
 	}
 }

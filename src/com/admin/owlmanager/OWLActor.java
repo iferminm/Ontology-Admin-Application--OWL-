@@ -6,6 +6,7 @@ import java.io.InputStream;
 
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 
+import com.hp.hpl.jena.ontology.Individual;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntModel;
 import com.hp.hpl.jena.ontology.OntProperty;
@@ -17,6 +18,7 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.ResourceFactory;
 import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.reasoner.Reasoner;
 import com.hp.hpl.jena.util.FileManager;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
@@ -195,7 +197,24 @@ public class OWLActor {
 	
 	public boolean deleteIndividual(String modelPath, String modelUrl, String individual) {
 		boolean result = false;
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelUrl);
 		
+		Individual resource = model.getIndividual(individual);
+		StmtIterator iter = resource.listProperties();
+		
+		model.remove(iter);
+		resource.remove();
+		
+		try {
+			this.writeModel(model, modelPath);
+			result = true;
+		} catch (FileNotFoundException e) {
+			//TODO: log4j
+			e.printStackTrace();
+		} finally {
+			model.close();
+		}
 		
 		return result;
 	}
