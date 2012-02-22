@@ -265,7 +265,9 @@ public class OntologyManager {
 		return resultIndividual && resultTriples;
 	}
 	
-	public void removeResource() {
+	public boolean deleteResource(String resourceURI) {
+		boolean result = false;
 		
+		return result;
 	}
 }

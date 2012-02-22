@@ -193,4 +193,11 @@ public class OWLActor {
 		return true;
 	}
 	
+	public boolean deleteIndividual(String modelPath, String modelUrl, String individual) {
+		boolean result = false;
+		
+		
+		return result;
+	}
+	
 }
