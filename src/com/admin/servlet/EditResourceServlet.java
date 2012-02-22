@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.admin.owlmanager.OntologyManager;
+
 /**
  * Servlet implementation class EditResourceServlet
  */
@@ -43,7 +45,9 @@ public class EditResourceServlet extends HttpServlet {
 		PrintWriter writer = response.getWriter();
 		
 		if (action.equals("delete_resource")) {
-			writer.write("Borraremos el recurso: " + resource);
+			OntologyManager om = new OntologyManager();
+			boolean result = om.deleteResource(resource);
+
 		} else if (action.equals("delete_annotations")) {
 			writer.write("Borraremos las anotaciones: <br />");
 			Enumeration<String> paramNames = request.getParameterNames();
@@ -61,5 +65,4 @@ public class EditResourceServlet extends HttpServlet {
 			writer.write("agregaremos anotaciones al recurso: " + resource);
 		}
 	}
-
 }
