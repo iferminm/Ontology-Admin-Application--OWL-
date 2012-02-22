@@ -38,19 +38,33 @@
 			</div>
 		</div>
 		<div id="contentwrapper">
-			<h2>Editing Resource: <i><%=resource%></i></h2>
-			<br />
-			<%
+		<%
 				String conditions = "<" + resource + "> <http://localhost/ontologies/ThesisOntology.owl#has-annotation> ?o";
 				OntologyManager om = new OntologyManager();
 				
 				TreeSet<Statement> annotations = om.oneResultQuery("*", conditions);
 				Iterator<Statement> iter = annotations.iterator();
 				
-				while (iter.hasNext()) {
-					System.out.println(iter.next());
-				}
-			%>
+		%>
+			<form action="EditResourceServlet" method="POST">
+				<h2>Editing Resource: <i><a href="<%=resource%>" target="_blank"><%=resource%></a></i></h2>
+				<br />
+				<p><b>Select an action:</b></p>
+				<input type="radio" name="action" value="delete_resource" />Delete current resource <br />
+				<input type="radio" name="action" value="delete_annotations" />Delete selected annotations <br />
+				<input type="radio" name="action" value="add_annotations" />Add annotations <br />
+				<input type="hidden" name="resource" value="<%=resource%>" />
+				<br />
+				<p><b>Annotations:</b></p>
+				<%
+					while (iter.hasNext()) {
+						Statement current = iter.next();
+						out.println("<input type=\"checkbox\" name=\"" + current.getStatement() + "\">" + current.getCleanStatement());
+						out.println("<br />");
+					}
+				%>
+				<input type="submit" value="Submit" />
+			</form>
 		</div>
 	</div>
 
