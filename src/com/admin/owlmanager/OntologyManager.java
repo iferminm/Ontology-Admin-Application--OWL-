@@ -20,10 +20,6 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
  * @author israelord
  */
 public class OntologyManager {
-	
-	public void addTriplet() {
-		
-	}
 
 	public void deleteTriplet() {
 		
@@ -95,11 +91,7 @@ public class OntologyManager {
 		
 		return result;
 	}
-	
-	public void getTriplets() {
 		
-	}
-	
 	/**
 	 * Gets all the classes of the owls base model
 	 * @return All classes as a TreeSet<Statement>
@@ -262,15 +254,12 @@ public class OntologyManager {
 		Statement cls = this.getSingleClassClean("resource");
 		Statement relation = this.getSinglePropertyClean("has-annotation");
 		
-		//System.out.print("Relation: " + relation.getStatement());
-		
 		boolean resultIndividual = owl.addIndividual(writeModelPath, modelURL, resource, cls.getStatement());
 		boolean resultTriples = true;
 		
 		
 		for (int i = 0; i < anotations.length; i++) {
 			resultTriples = resultTriples && owl.addTripleStore(writeModelPath, modelURL, resource, relation.getStatement(), anotations[i]);
-//			System.out.println(anotations[i]);
 		}
 		
 		return resultIndividual && resultTriples;
