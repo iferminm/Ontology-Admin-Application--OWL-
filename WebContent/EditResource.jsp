@@ -50,7 +50,7 @@
 				<h2>Editing Resource: <i><a href="<%=resource%>" target="_blank"><%=resource%></a></i></h2>
 				<br />
 				<p><b>Select an action:</b></p>
-				<input type="radio" name="action" value="delete_resource" />Delete current resource <br />
+				<input type="radio" checked name="action" value="delete_resource" />Delete current resource <br />
 				<input type="radio" name="action" value="delete_annotations" />Delete selected annotations <br />
 				<input type="radio" name="action" value="add_annotations" />Add annotations <br />
 				<input type="hidden" name="resource" value="<%=resource%>" />
@@ -68,6 +68,5 @@
 			</form>
 		</div>
 	</div>
-
 </body>
 </html>
