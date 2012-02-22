@@ -39,10 +39,12 @@ public class OntologyServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		boolean res = new OntologyManager().loadOntology();
+		OntologyManager om = new OntologyManager();
+		boolean deleteResult = om.deleteOntology();
+		boolean loadResult = om.loadOntology();
 		response.setContentType("text/html");
 		PrintWriter writer = response.getWriter();
-		if (res) {
+		if (deleteResult && loadResult) {
 			writer.write("<h1 fontcolor=\"green\">OK</h1>");
 		} else {
 			writer.write("<h1 fontcolot=\"red\">ERROR</h1>");
