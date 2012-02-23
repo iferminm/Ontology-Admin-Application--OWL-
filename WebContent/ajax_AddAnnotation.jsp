@@ -145,7 +145,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	
 /**************************************************************************************************************
 
-    									Load tool's relations
+    							Loading Entities to select who developed the tool
 
 ***************************************************************************************************************/
 } else if (statement.getCleanStatement().equalsIgnoreCase("tool")) {
@@ -172,7 +172,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	
 /**************************************************************************************************************
 
-						Load concepts for the curren tool to implement
+						Load concepts for the current tool to implement
 
 ***************************************************************************************************************/
 	out.println("<tr>");
@@ -192,12 +192,153 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("</select>");
 	out.println("</td>");
 	out.println("</tr>");
+	
+/**************************************************************************************************************
+
+				Load Tools for the Enterprise to develop
+
+***************************************************************************************************************/
 } else if (statement.getCleanStatement().equalsIgnoreCase("enterprise")) {
-	out.println("Empresa");
+	TreeSet<Statement> tools = manager.getClassInstances(thesisPrefix + "Tool");
+	TreeSet<Statement> concepts = manager.getClassInstances(thesisPrefix + "Concept");
+	Iterator<Statement> toolsIterator = tools.iterator();
+	out.println("<tr>");
+	out.println("<td>develops</td>");
+	out.println("<td>");
+	out.println("<select name=\"tool\" size=\"15\">");
+	out.println("<option selected value=\"noselect\">No Selection</option>");
+	out.println("<option value=\"invalid\">-------------------</option>");
+	while (toolsIterator.hasNext()) {
+		Statement current = toolsIterator.next();
+		String value = current.getStatement();
+		String cleanValue = current.getCleanStatement();
+		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
+	}
+	
+	out.println("</select>");
+	out.println("</td>");
+	out.println("</tr>");
+/**************************************************************************************************************
+
+					Load concepts for the enterprise to state
+
+***************************************************************************************************************/
+	Iterator<Statement> conceptsIterator = concepts.iterator();
+	out.println("<tr>");
+	out.println("<td>states</td>");
+	out.println("<td>");
+	out.println("<select name=\"concept\" size=\"15\">");
+	out.println("<option selected value=\"noselect\">No Selection</option>");
+	out.println("<option value=\"invalid\">-------------------</option>");
+	while (conceptsIterator.hasNext()) {
+		Statement current = toolsIterator.next();
+		String value = current.getStatement();
+		String cleanValue = current.getCleanStatement();
+		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
+	}
+	
+	out.println("</select>");
+	out.println("</td>");
+	out.println("</tr>");
+
+/**************************************************************************************************************
+
+						Load concepts for the person to state
+
+***************************************************************************************************************/
 } else if (statement.getCleanStatement().equalsIgnoreCase("person")) {
-	out.println("Persona");
+	TreeSet<Statement> tools = manager.getClassInstances(thesisPrefix + "Tool");
+	TreeSet<Statement> concepts = manager.getClassInstances(thesisPrefix + "Concept");
+	Iterator<Statement> toolsIterator = tools.iterator();
+	out.println("<tr>");
+	out.println("<td>develops</td>");
+	out.println("<td>");
+	out.println("<select name=\"tool\" size=\"15\">");
+	out.println("<option selected value=\"noselect\">No Selection</option>");
+	out.println("<option value=\"invalid\">-------------------</option>");
+	while (toolsIterator.hasNext()) {
+		Statement current = toolsIterator.next();
+		String value = current.getStatement();
+		String cleanValue = current.getCleanStatement();
+		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
+	}
+	
+	out.println("</select>");
+	out.println("</td>");
+	out.println("</tr>");
+/**************************************************************************************************************
+
+					Load concepts for the person to state
+
+***************************************************************************************************************/
+	Iterator<Statement> conceptsIterator = concepts.iterator();
+	out.println("<tr>");
+	out.println("<td>states</td>");
+	out.println("<td>");
+	out.println("<select name=\"concept\" size=\"15\">");
+	out.println("<option selected value=\"noselect\">No Selection</option>");
+	out.println("<option value=\"invalid\">-------------------</option>");
+	while (conceptsIterator.hasNext()) {
+		Statement current = toolsIterator.next();
+		String value = current.getStatement();
+		String cleanValue = current.getCleanStatement();
+		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
+	}
+	
+	out.println("</select>");
+	out.println("</td>");
+	out.println("</tr>");
+
+	
+/**************************************************************************************************************
+
+						Load concepts for the team to state
+
+***************************************************************************************************************/
+
 } else if (statement.getCleanStatement().equalsIgnoreCase("team")) {
-	out.println("Team");
+	TreeSet<Statement> tools = manager.getClassInstances(thesisPrefix + "Tool");
+	TreeSet<Statement> concepts = manager.getClassInstances(thesisPrefix + "Concept");
+	Iterator<Statement> toolsIterator = tools.iterator();
+	out.println("<tr>");
+	out.println("<td>develops</td>");
+	out.println("<td>");
+	out.println("<select name=\"tool\" size=\"15\">");
+	out.println("<option selected value=\"noselect\">No Selection</option>");
+	out.println("<option value=\"invalid\">-------------------</option>");
+	while (toolsIterator.hasNext()) {
+		Statement current = toolsIterator.next();
+		String value = current.getStatement();
+		String cleanValue = current.getCleanStatement();
+		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
+	}
+	
+	out.println("</select>");
+	out.println("</td>");
+	out.println("</tr>");
+/**************************************************************************************************************
+
+					Load concepts for the team to state
+
+***************************************************************************************************************/
+	Iterator<Statement> conceptsIterator = concepts.iterator();
+	out.println("<tr>");
+	out.println("<td>states</td>");
+	out.println("<td>");
+	out.println("<select name=\"concept\" size=\"15\">");
+	out.println("<option selected value=\"noselect\">No Selection</option>");
+	out.println("<option value=\"invalid\">-------------------</option>");
+	while (conceptsIterator.hasNext()) {
+		Statement current = toolsIterator.next();
+		String value = current.getStatement();
+		String cleanValue = current.getCleanStatement();
+		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
+	}
+	
+	out.println("</select>");
+	out.println("</td>");
+	out.println("</tr>");
+
 }
 
 out.println("</table>");
