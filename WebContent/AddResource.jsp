@@ -124,30 +124,34 @@
 				<%
 					} else {    // End adding knowledge and begin adding other
 				%>
-				<tr>
-					<td>Tool</td>
-					<td>
-						<select multiple name="tool" size="15">
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Enterprise</td>
-					<td>
-						<select multiple name="enterprise" size="15">
-						</select>
-					</td>
-				</tr>
-				<tr>
-					<td>Person</td>
-					<td>
-						<select multiple name="person" size="15">
-						</select>
-					</td>
-				</tr>
-				<%
+					<% if (contentType.equalsIgnoreCase("tool")) { // Begin if adding a tool %>
+					<tr>
+						<td>Tool</td>
+						<td>
+							<select multiple name="tool" size="15">
+							</select>
+						</td>
+					</tr>
+					<% } else if(contentType.equalsIgnoreCase("enterprise")) { // End of adding a tool and begin enterprise %>
+					<tr>
+						<td>Enterprise</td>
+						<td>
+							<select multiple name="enterprise" size="15">
+							</select>
+						</td>
+					</tr>
+					<% } else if (contentType.equalsIgnoreCase("person")) { // End of adding an enterprise and begin person %>
+					<tr>
+						<td>Person</td>
+						<td>
+							<select multiple name="person" size="15">
+							</select>
+						</td>
+					</tr>
+					<%
+						} // End of adding person
 					} // End adding other
-				%>
+					%>
 				<tr>
 					<td colspan="2"><input type="submit" name="submit" value="Submit" /></td>
 				</tr>

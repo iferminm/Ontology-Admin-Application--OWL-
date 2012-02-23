@@ -12,14 +12,20 @@
 <%
 	Map<String, String[]> parameterMap = request.getParameterMap();
 	String knowledgeHref = "AddResource.jsp?add=knowledge";
-	String otherHref = "AddResource.jsp?add=other";
+	String toolHref = "AddResource.jsp?add=tool";
+	String enterpriseHref = "AddResource.jsp?add=enterprise";
+	String personHref = "AddResource.jsp?add=person";
 	if (!parameterMap.isEmpty()) {
 		String resource = request.getParameter("resource");
 		knowledgeHref += "&resource=" + resource;
-		otherHref += "&resource=" + resource;
+		toolHref += "&resource=" + resource;
+		enterpriseHref += "&resource=" + resource;
+		personHref += "&resource=" + resource;
 	} else {
 		knowledgeHref += "&resource=new";
-		otherHref += "&resource=new";
+		toolHref += "&resource=new";
+		enterpriseHref += "&resource=new";
+		personHref += "&resource=new";
 	}
 %>
 	<div id="wrapper">
@@ -46,7 +52,9 @@
 		<div id="contentwrapper">
 			<h2>Please, select what kind of resource you want to add:</h2>
 			<p><a href="<%=knowledgeHref%>">Knowledge classes</a></p>
-			<p><a href="<%=otherHref%>">Entity or tool classes</a></p>
+			<p><a href="<%=toolHref%>">Tool class</a></p>
+			<p><a href="<%=enterpriseHref%>">Enterprise class</a></p>
+			<p><a href="<%=personHref%>">Person class</a></p>
 		</div>
 	</div>
 
