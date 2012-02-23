@@ -21,10 +21,6 @@ import com.hp.hpl.jena.util.iterator.ExtendedIterator;
  */
 public class OntologyManager {
 
-	public void deleteTriplet() {
-		
-	}
-
 	/**
 	 * Deletes the given graph from Virtuoso
 	 * @param graphName given graph
@@ -176,7 +172,7 @@ public class OntologyManager {
 		String query = "SELECT " + select + " FROM <" + graphName + "> WHERE { " + whereConditions + " }";
 		
 		ResultSet res = VirtuosoActor.getTheInstance().executeOneResultQuery(graphName, query);
-		
+	
 		return this.populateOneResult(res);
 	}
 	
@@ -272,6 +268,22 @@ public class OntologyManager {
 		String modelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
 		String modelUrl = ConfigManager.getInstance().getProperty("baseModelPath");
 		result = owl.deleteIndividual(modelPath, modelUrl, resourceURI);
+		return result;
+	}
+	
+	public TreeSet<Statement> getResourceAnnotations(String resource) {
+		TreeSet<Statement> result = new TreeSet<Statement>();
+		OWLActor owl = new OWLActor();
+		ArrayList<RDFNode> values = owl.getIndividualPropertyValues(ConfigManager.getInstance().getProperty("baseModelPath"), 
+									resource, "http://localhost/ontologies/ThesisOntology.owl#has-annotation");
+		
+		Iterator<RDFNode> iter = values.iterator();
+		
+		while (iter.hasNext()) {
+			RDFNode current = iter.next();
+			result.add(new Statement(current.toString()));
+		}
+		
 		return result;
 	}
 }
