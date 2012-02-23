@@ -21,6 +21,7 @@
 	OntologyManager om = new OntologyManager();
 	TreeSet<Statement> classes = om.getClasses();
 	Iterator<Statement> iter = null;
+	String resource = request.getParameter("resource");
 %>
 	<div id="wrapper">
 		<div id="header">
@@ -49,7 +50,11 @@
 				<tr>
 					<td><b>Resource URI:</b></td>
 					<td>
+					<% if (resource.equals("new")) { // if creating a resource %>
 						<input class="text" type="text" name="uri" size="60" />
+					<% } else { // if editing a resource %>
+						<input class="text" type="text" name="uri" size="60" value="<%=resource%>" readonly="readonly" />
+					<% } %>
 					</td>
 				</tr>
 				<tr>
