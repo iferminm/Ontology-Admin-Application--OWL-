@@ -74,6 +74,7 @@
 				</table>
 				<div id="result_class">
 				</div>
+				<input type="submit" value="Submit" />
 			</form>
 		</div>
 	</div>
