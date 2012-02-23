@@ -119,7 +119,7 @@ public class OntologyManager {
 			Object i = iter.next();
 			result.add(new Statement(i.toString()));
 		}
-		
+
 		return result;
 	}
 	
