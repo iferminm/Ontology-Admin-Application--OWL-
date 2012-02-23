@@ -39,10 +39,9 @@
 		</div>
 		<div id="contentwrapper">
 		<%
-				String conditions = "<" + resource + "> <http://localhost/ontologies/ThesisOntology.owl#has-annotation> ?o";
 				OntologyManager om = new OntologyManager();
 				
-				TreeSet<Statement> annotations = om.oneResultQuery("*", conditions);
+				TreeSet<Statement> annotations = om.getResourceAnnotations(resource);
 				Iterator<Statement> iter = annotations.iterator();
 				
 		%>
