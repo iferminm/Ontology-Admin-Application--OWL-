@@ -31,10 +31,10 @@
 				<p><a href="ViewResources.jsp">View Resources</a></p>			
 			</div>
 			<div id="menuitem">
-				<p>Add Annotation</p>			
+				<p><a href="AddAnnotation.jsp">Add Annotation</a></p>			
 			</div>
 			<div id="menuitem">
-				<p>View Annotations</p>			
+				<p><a href="ViewAnnotations.jsp">View Annotations</a></p>			
 			</div>
 		</div>
 		<div id="contentwrapper">
