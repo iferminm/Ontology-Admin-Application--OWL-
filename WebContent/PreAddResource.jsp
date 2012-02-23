@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.Map" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -9,7 +10,17 @@
 </head>
 <body>
 <%
-	System.out.println("Parameter Names: " + request.getParameterNames());
+	Map<String, String[]> parameterMap = request.getParameterMap();
+	String knowledgeHref = "AddResource.jsp?add=knowledge";
+	String otherHref = "AddResource.jsp?add=other";
+	if (!parameterMap.isEmpty()) {
+		String resource = request.getParameter("resource");
+		knowledgeHref += "&resource=" + resource;
+		otherHref += "&resource=" + resource;
+	} else {
+		knowledgeHref += "&resource=new";
+		otherHref += "&resource=new";
+	}
 %>
 	<div id="wrapper">
 		<div id="header">
@@ -34,8 +45,8 @@
 		</div>
 		<div id="contentwrapper">
 			<h2>Please, select what kind of resource you want to add:</h2>
-			<p><a href="AddResource.jsp?add=knowledge">Knowledge classes</a></p>
-			<p><a href="AddResource.jsp?add=other">Entity or tool classes</a></p>
+			<p><a href="<%=knowledgeHref%>">Knowledge classes</a></p>
+			<p><a href="<%=otherHref%>">Entity or tool classes</a></p>
 		</div>
 	</div>
 
