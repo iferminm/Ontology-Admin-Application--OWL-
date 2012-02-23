@@ -69,4 +69,5 @@ DIV#menuitem:hover {
 
 SELECT {
 	min-width: 300px;
+	border: 1px solid black;
 }
