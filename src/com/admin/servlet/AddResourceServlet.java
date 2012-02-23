@@ -106,14 +106,9 @@ public class AddResourceServlet extends HttpServlet {
 				OntologyManager om = new OntologyManager();
 				boolean result = om.addResource(uri, selectedAnotations);
 			}
-			
-			for (int i = 0; i < selectedAnotations.length; i++) {
-				System.out.println(selectedAnotations[i]);
-			}
-			System.out.println("URI: " + uri);
 		} else {
 			PrintWriter writer = response.getWriter();
-			writer.println("<p><a href=\"PreAddResource.html\">Invalid URL</a></p>");
+			writer.write("<p><a href=\"PreAddResource.html\">Invalid URL</a></p>");
 			writer.close();
 		}
 	}
