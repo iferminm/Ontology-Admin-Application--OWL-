@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="com.admin.owlmanager.OntologyManager" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -30,7 +31,7 @@
 			</div>
 		</div>
 		<div id="contentwrapper">
-			<h2>Welcome to Strigi</h2>
+			
 		</div>
 	</div>
 
