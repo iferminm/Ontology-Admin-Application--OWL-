@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Stylesheet" href="css/GeneralStyle.css" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="js/annotation_selectboxes_chainning.js"></script>
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
@@ -75,7 +76,7 @@
 						// We generate the rest of the table by using the class iterator from the classes TreeSet<Statement>
 						while (iter.hasNext()) {
 							Statement current = iter.next();
-							out.write("<tr id= result_\"" + current.getCleanStatement().toLowerCase() + "\">");
+							out.write("<tr id=result_" + current.getCleanStatement().toLowerCase() + ">");
 							out.write("</tr>");
 						}
 					%>
