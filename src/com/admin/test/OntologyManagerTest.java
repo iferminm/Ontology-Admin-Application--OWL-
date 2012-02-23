@@ -30,7 +30,7 @@ public class OntologyManagerTest {
 		assertTrue("Query Error", result.size() == 14);
 	}
 	
-	@Test
+//	@Test
 	public final void addResourceTest() {
 		OntologyManager om = new OntologyManager();
 		String[] annotations = {"http://localhost/ontologies/ThesisOntology.owl#DataLinkLayerConcepts"};
@@ -42,12 +42,20 @@ public class OntologyManagerTest {
 		assertTrue("Resource not added", result && result2);
 	}
 	
-	@Test
+	//@Test
 	public final void deleteResourceTest() {
 		OntologyManager om = new OntologyManager();
 		boolean result = om.deleteResource("http://iferminmontilla.net");
 		boolean result2 = om.deleteResource("http://www.w3c.org");
 		
 		assertTrue("Errors deleting requested resource", result && result2);
+	}
+	
+	@Test
+	public final void getResourceAnnotations() {
+		OntologyManager om = new OntologyManager();
+		om.getResourceAnnotations("http://www.iferminmontilla.net");
+		
+		assertTrue("ERROR", true);
 	}
 }
