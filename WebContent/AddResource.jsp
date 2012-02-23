@@ -132,9 +132,16 @@
 					</td>
 				</tr>
 				<tr>
-					<td>Entity</td>
+					<td>Enterprise</td>
 					<td>
-						<select multiple name="entity" size="15">
+						<select multiple name="enterprise" size="15">
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td>Person</td>
+					<td>
+						<select multiple name="person" size="15">
 						</select>
 					</td>
 				</tr>
