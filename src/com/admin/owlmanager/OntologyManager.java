@@ -196,6 +196,11 @@ public class OntologyManager {
 		return null;
 	}
 	
+	/**
+	 * Gets a class throgh its clean name
+	 * @param requestedClassClean clean name for the requested class (with no prefix)
+	 * @return the requested statement (with prefix)
+	 */
 	public Statement getSingleClassClean(String requestedClassClean) {
 		TreeSet<Statement> classes = this.getClasses();
 		Iterator<Statement> iter = classes.iterator();
@@ -210,6 +215,10 @@ public class OntologyManager {
 		return null;
 	}
 	
+	/**
+	 * Gets all properties on the model
+	 * @return All the properties as TreeSet<Statement>
+	 */
 	private TreeSet<Statement> getAllProperties() {
 		TreeSet<Statement> result = new TreeSet<Statement>();
 		OWLActor owl = new OWLActor();
@@ -223,6 +232,11 @@ public class OntologyManager {
 		return result;
 	}
 	
+	/**
+	 * Gets a single property through its clean name 
+	 * @param cleanName name we're looking for
+	 * @return the requested statement
+	 */
 	private Statement getSinglePropertyClean(String cleanName) {
 		TreeSet<Statement> properties = this.getAllProperties();
 		Statement result = null;
@@ -262,6 +276,11 @@ public class OntologyManager {
 		return resultIndividual && resultTriples;
 	}
 	
+	/**
+	 * Deletes a resource through its URI 
+	 * @param resourceURI target resource URI
+	 * @return True if everything went ok
+	 */
 	public boolean deleteResource(String resourceURI) {
 		boolean result = false;
 		OWLActor owl = new OWLActor();
@@ -271,6 +290,11 @@ public class OntologyManager {
 		return result;
 	}
 	
+	/**
+	 * Gets all annotations for a given resource URI
+	 * @param resource URI
+	 * @return all the resource's properties as a TreeSet<Statement>
+	 */
 	public TreeSet<Statement> getResourceAnnotations(String resource) {
 		TreeSet<Statement> result = new TreeSet<Statement>();
 		OWLActor owl = new OWLActor();
