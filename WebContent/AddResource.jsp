@@ -12,7 +12,7 @@
 
 <link rel="Stylesheet" href="css/GeneralStyle.css" type="text/css" />
 
-<script language="JavaScript" type="text/javascript" src="js/selectbox_chainning.js"></script>
+<script language="JavaScript" type="text/javascript" src="js/resource_selectboxes_chainning.js"></script>
 
 <title>Strigi Ontology Manager</title>
 </head>
