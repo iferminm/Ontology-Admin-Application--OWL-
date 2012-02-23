@@ -116,21 +116,6 @@ public class AddResourceServlet extends HttpServlet {
 			writer.println("<p><a href=\"PreAddResource.html\">Invalid URL</a></p>");
 			writer.close();
 		}
-		
-		
-		
-		/*
-		Iterator<String> keysIterator = keys.iterator();
-		
-		while (keysIterator.hasNext()) {
-			String currentKey = keysIterator.next();
-			System.out.print(currentKey + " --> ");
-			String[] currentValue = map.get(currentKey);
-			for (int i = 0; i < currentValue.length; i++) {
-				System.out.print(currentValue[i]);
-			}
-			System.out.println(". ");
-		}*/
 	}
 
 }
