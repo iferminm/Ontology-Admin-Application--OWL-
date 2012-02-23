@@ -201,6 +201,4 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 }
 
 out.println("</table>");
-
-
 %>
