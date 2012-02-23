@@ -31,10 +31,10 @@
 				<p>View Ontology</p>
 			</div>
 			<div id="menuitem">
-				<p><a href="PreAddResource.html">Add Resource</a></p>
+				<p><a href="PreAddResource.jsp">Add Resource</a></p>
 			</div>
 			<div id="menuitem">
-				<p>View Resource</p>			
+				<p><a href="ViewResources.jsp">View Resource</a></p>			
 			</div>
 			<div id="menuitem">
 				<p>Add Annotation</p>			
