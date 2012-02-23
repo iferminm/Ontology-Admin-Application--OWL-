@@ -37,7 +37,7 @@
 				<p><a href="AddAnnotation.jsp">Add Annotation</a></p>			
 			</div>
 			<div id="menuitem">
-				<p>View Annotations</p>			
+				<p><a href="ViewAnnotations.jsp">View Annotations</a></p>			
 			</div>
 		</div>
 		<div id="contentwrapper">
@@ -60,27 +60,20 @@
 								<%
 									while (iter.hasNext()) {
 										Statement current = iter.next();
-										out.println("<option value=\"" + current.getStatement() + "\">" + 
-														current.getCleanStatement() + "</option>");
+										if ( (!current.getCleanStatement().equalsIgnoreCase("Resource")) && 
+											(!current.getCleanStatement().equalsIgnoreCase("Entity")) ) {
 										
-										if (current.getCleanStatement().equalsIgnoreCase("discipline")) {
-											iter.remove();
+											out.println("<option value=\"" + current.getStatement() + "\">" + 
+														current.getCleanStatement() + "</option>");
 										}
 									}
 								%>
 							</select>
 						</td>
 					</tr>
-					<%
-						iter = classes.iterator();
-						// We generate the rest of the table by using the class iterator from the classes TreeSet<Statement>
-						while (iter.hasNext()) {
-							Statement current = iter.next();
-							out.write("<tr id=result_" + current.getCleanStatement().toLowerCase() + ">");
-							out.write("</tr>");
-						}
-					%>
 				</table>
+				<div id="result_class">
+				</div>
 			</form>
 		</div>
 	</div>

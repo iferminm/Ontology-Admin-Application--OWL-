@@ -1,15 +1,11 @@
 var xmlHttp;
 
-function cleanString(text) {
-	tokens = text.split("#");
-	alert(tokens.length);
+function getCleanStatement (statement) {
+	tokens = className.split("#");
 	if (tokens.length == 2) {
-	//	alert(tokens[0]);
-	//	alert(tokens[1]);
 		return tokens[1].toLowerCase();
 	}
-	
-	return text.toLowerCase();
+	return statement;
 }
 
 function showClassProperties(className) {
@@ -25,6 +21,9 @@ function showClassProperties(className) {
 	url = "ajax_AddAnnotation.jsp?class=" + escape(className);
 	url = url + "&id=" + id;
 	
+//	cleanStatement = getCleanStatement(className);
+	
+	
 	xmlHttp.onreadystatechange = result_class;
 	
 	xmlHttp.open("GET", url, true);
@@ -33,6 +32,6 @@ function showClassProperties(className) {
 
 function result_class() {
 	if (xmlHttp.readyState == 4) {
-		document.getElementById("result_tool").innerHTML = xmlHttp.responseText;
+		document.getElementById("result_class").innerHTML = xmlHttp.responseText;
 	}
 }
