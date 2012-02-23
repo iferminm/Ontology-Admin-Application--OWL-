@@ -3,6 +3,7 @@ package com.admin.owlmanager;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 
@@ -217,6 +218,23 @@ public class OWLActor {
 		}
 		
 		return result;
+	}
+	
+	public ArrayList<RDFNode> getIndividualPropertyValues(String modelURL, String resourceURI, String property) {
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelURL);
+		
+		Individual resource = model.getIndividual(resourceURI);
+		StmtIterator iter = resource.listProperties(ResourceFactory.createProperty(property));
+		
+		ArrayList<RDFNode> values = new ArrayList<RDFNode>();
+		
+		while (iter.hasNext()) {
+			Statement current = iter.next();
+			values.add(current.getObject());
+		}
+		
+		return values;
 	}
 	
 }
