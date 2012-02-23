@@ -196,6 +196,13 @@ public class OWLActor {
 		return true;
 	}
 	
+	/**
+	 * Eliminates a given instance and all its relations and properties
+	 * @param modelPath model physical path to write
+	 * @param modelUrl model uel
+	 * @param individual target individual
+	 * @return true if everything went ok
+	 */
 	public boolean deleteIndividual(String modelPath, String modelUrl, String individual) {
 		boolean result = false;
 		OntModel model = ModelFactory.createOntologyModel();
@@ -220,6 +227,13 @@ public class OWLActor {
 		return result;
 	}
 	
+	/**
+	 * Gets all the properties of a given individual
+	 * @param modelURL model's url
+	 * @param resourceURI target resource's URI
+	 * @param property preperty we're looking for
+	 * @return an ArrayList with the requested property values for the given individual
+	 */
 	public ArrayList<RDFNode> getIndividualPropertyValues(String modelURL, String resourceURI, String property) {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelURL);
