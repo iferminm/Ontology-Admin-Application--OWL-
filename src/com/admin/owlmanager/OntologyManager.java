@@ -310,4 +310,18 @@ public class OntologyManager {
 		
 		return result;
 	}
+	
+	public boolean deleteResourceAnnotations(String resourceURI, ArrayList<String> annotations) {
+		boolean result = false;
+		String prefix = "http://localhost/ontologies/ThesisOntology.owl#";
+		String relation = "has-annotation";
+		
+		String modelURL = ConfigManager.getInstance().getProperty("baseModelPath");
+		String modelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
+		
+		OWLActor owl = new OWLActor();
+		result = owl.deleteIndividualObjects(modelURL, modelPath, resourceURI, annotations, prefix, relation);
+		
+		return result;
+	}
 }

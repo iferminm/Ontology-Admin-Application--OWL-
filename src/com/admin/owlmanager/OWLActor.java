@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import org.mindswap.pellet.jena.PelletReasonerFactory;
 
@@ -249,6 +250,36 @@ public class OWLActor {
 		}
 		
 		return values;
+	}
+	
+	public boolean deleteIndividualObjects(String modelURL, String modelPath, String resourceURI, 
+			ArrayList<String> objects, String prefix, String relation) {
+		boolean result = false;
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelURL);
+		String completeRelation = prefix + relation;
+		
+		Individual individual = model.getIndividual(resourceURI);
+		Property property = ResourceFactory.createProperty(completeRelation);
+		Iterator<String> iter = objects.iterator();
+		
+		while (iter.hasNext()) {
+			String currentObject = iter.next();
+			Resource object = ResourceFactory.createResource(currentObject);
+			individual.removeProperty(property, object);
+		}
+		
+		try {
+			this.writeModel(model, modelPath);
+			result = true;
+		} catch (FileNotFoundException e) {
+			// TODO log4j
+			e.printStackTrace();
+		} finally {
+			model.close();
+		}
+		
+		return result;
 	}
 	
 }

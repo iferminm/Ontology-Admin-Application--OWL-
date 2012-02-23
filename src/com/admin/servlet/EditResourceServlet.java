@@ -47,20 +47,30 @@ public class EditResourceServlet extends HttpServlet {
 		if (action.equals("delete_resource")) {
 			OntologyManager om = new OntologyManager();
 			boolean result = om.deleteResource(resource);
-
+			if (result) {
+				writer.write("OK");
+			} else {
+				writer.write("error");
+			}
 		} else if (action.equals("delete_annotations")) {
 			writer.write("Borraremos las anotaciones: <br />");
 			Enumeration<String> paramNames = request.getParameterNames();
+			OntologyManager om = new OntologyManager();
 			ArrayList<String> annotations = new ArrayList<String>();
 			
 			while (paramNames.hasMoreElements()) {
 				String current = paramNames.nextElement();
 				if (current.startsWith("http://")) {
-					writer.write(current + "<br />");
 					annotations.add(current);
 				}
 			}
-			writer.write("Del recurso: " + resource);
+			
+			boolean result = om.deleteResourceAnnotations(resource, annotations);
+			if (result) {
+				writer.write("OK");
+			} else {
+				writer.write("error");
+			}
 		} else if (action.equals("add_annotations")) {
 			writer.write("agregaremos anotaciones al recurso: " + resource);
 		}
