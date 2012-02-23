@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -72,7 +73,9 @@ public class EditResourceServlet extends HttpServlet {
 				writer.write("error");
 			}
 		} else if (action.equals("add_annotations")) {
-			writer.write("agregaremos anotaciones al recurso: " + resource);
+			response.sendRedirect("PreAddResource.jsp?resource=" + resource);
 		}
+		
+		writer.close();
 	}
 }
