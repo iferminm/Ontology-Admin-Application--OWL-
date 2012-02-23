@@ -252,6 +252,17 @@ public class OWLActor {
 		return values;
 	}
 	
+	
+	/**
+	 * Deletes relations from a given individual
+	 * @param modelURL model's read location
+	 * @param modelPath model's write location
+	 * @param resourceURI target resource
+	 * @param objects objects to be deleted
+	 * @param prefix prefix of the relation (namespace)
+	 * @param relation name of the relation
+	 * @return true if evetyrhing went ok
+	 */
 	public boolean deleteIndividualObjects(String modelURL, String modelPath, String resourceURI, 
 			ArrayList<String> objects, String prefix, String relation) {
 		boolean result = false;

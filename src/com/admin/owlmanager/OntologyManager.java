@@ -311,6 +311,12 @@ public class OntologyManager {
 		return result;
 	}
 	
+	/**
+	 * Deletes selected annotations from a given resource
+	 * @param resourceURI the target resource
+	 * @param annotations the selected annotations
+	 * @return True if everything went ok
+	 */
 	public boolean deleteResourceAnnotations(String resourceURI, ArrayList<String> annotations) {
 		boolean result = false;
 		String prefix = "http://localhost/ontologies/ThesisOntology.owl#";
