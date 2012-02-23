@@ -261,7 +261,7 @@ public class OWLActor {
 	 * @param objects objects to be deleted
 	 * @param prefix prefix of the relation (namespace)
 	 * @param relation name of the relation
-	 * @return true if evetyrhing went ok
+	 * @return true if everything went ok
 	 */
 	public boolean deleteIndividualObjects(String modelURL, String modelPath, String resourceURI, 
 			ArrayList<String> objects, String prefix, String relation) {
