@@ -8,6 +8,9 @@
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
+<%
+	System.out.println("Parameter Names: " + request.getParameterNames());
+%>
 	<div id="wrapper">
 		<div id="header">
 			<p> Este es el header</p>
@@ -20,7 +23,7 @@
 				<p><a href="PreAddResource.jsp">Add Resource</a></p>			
 			</div>
 			<div id="menuitem">
-				<p>View Resource</p>			
+				<p><a href="ViewResources.jsp">View Resource</a></p>			
 			</div>
 			<div id="menuitem">
 				<p>Add Annotation</p>			
