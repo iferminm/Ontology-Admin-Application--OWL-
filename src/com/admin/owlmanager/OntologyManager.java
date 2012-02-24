@@ -330,4 +330,11 @@ public class OntologyManager {
 		
 		return result;
 	}
+	
+	public boolean addTriplet(String subject, String predicate, String object) {
+		boolean result = false;
+		
+		
+		return result;
+	}
 }
