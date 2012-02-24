@@ -51,6 +51,8 @@ public class AddAnnotationServlet extends HttpServlet {
 		
 		if (!className.equals("noselect")) {
 			annotationAdd = annotationAdd && manager.addAnnotationURI(annotationName, className);
+		} else {
+			annotationAdd = false;
 		}
 		if (annotationAdd) {
 			if (className.endsWith("Concept")) {
@@ -61,18 +63,45 @@ public class AddAnnotationServlet extends HttpServlet {
 					relatedConcept = request.getParameter("related");
 					annotationAdd = annotationAdd && manager.addTriplet(annotationName, THESIS_PREFIX + relationType, relatedConcept);
 				}
-				if (!topic.equals("noselect")) {
+				if ( (!topic.equals("noselect")) && (annotationAdd) ) {
 					annotationAdd = annotationAdd && manager.addTriplet(annotationName, THESIS_PREFIX + "in-topic", topic);
+				} else {
+					PrintWriter writer = response.getWriter();
+					writer.write("There were errors adding the annotation");
+					manager.deleteResource(annotationName);
+					writer.close();
 				}
 			} else {
 				Map<String, String[]> values = request.getParameterMap();
 				Set<String> keySet = values.keySet();
 				Iterator<String> iter = keySet.iterator();
 				while (iter.hasNext()) {
-					String current = iter.next();
-					System.out.println(current);
+					String currentKey = iter.next();
+					if ( (!currentKey.equals("class")) && (!currentKey.equals("annotation")) ) {
+						String relation = THESIS_PREFIX + currentKey;
+						String[] objects = values.get(currentKey);
+						for (int i = 0; i < objects.length; i++) {
+							if (!objects[i].equals("noselect")) {
+								if (annotationAdd) {
+									annotationAdd = annotationAdd && manager.addTriplet(annotationName, relation, objects[i]);
+								} else {
+									PrintWriter writer = response.getWriter();
+									writer.write("There were errors adding the annotation");
+									manager.deleteResource(annotationName);
+									writer.close();
+								}
+							}
+						}
+					}
 				}
 			}
+		} else {
+			PrintWriter writer = response.getWriter();
+			writer.write("There were errors adding the annotation");
+			manager.deleteResource(annotationName);
+			writer.close();
 		}
+		PrintWriter writer = response.getWriter();
+		writer.write("SUCCESS");
 	}
 }
