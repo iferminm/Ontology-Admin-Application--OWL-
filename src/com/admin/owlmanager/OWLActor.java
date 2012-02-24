@@ -175,15 +175,13 @@ public class OWLActor {
 	public boolean addTripleStore(String modelPath, String modelUrl, String subject, String predicate, String object) {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelUrl);
-		
 		Resource resource = model.getResource(subject);
-		Property property = model.getOntProperty(predicate);
+		Property property = model.getProperty(predicate);
 		RDFNode node = model.getIndividual(object);
 		
 		Statement statement = ResourceFactory.createStatement(resource, property, node);
 		
 		model.add(statement);
-		
 		try {
 			this.writeModel(model, modelPath);
 		} catch (FileNotFoundException e) {
