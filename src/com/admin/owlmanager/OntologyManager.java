@@ -350,6 +350,7 @@ public class OntologyManager {
 		String modelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
 		String modelUrl = ConfigManager.getInstance().getProperty("baseModelPath");
 		
+		
 		result = owl.addTripleStore(modelPath, modelUrl, subject, predicate, object);
 		
 		return result;
