@@ -15,17 +15,20 @@
 	String toolHref = "AddResource.jsp?add=tool";
 	String enterpriseHref = "AddResource.jsp?add=enterprise";
 	String personHref = "AddResource.jsp?add=person";
+	String teamHref = "AddResource.jsp?add=team";
 	if (!parameterMap.isEmpty()) {
 		String resource = request.getParameter("resource");
 		knowledgeHref += "&resource=" + resource;
 		toolHref += "&resource=" + resource;
 		enterpriseHref += "&resource=" + resource;
 		personHref += "&resource=" + resource;
+		teamHref += "&resource=" + resource;
 	} else {
 		knowledgeHref += "&resource=new";
 		toolHref += "&resource=new";
 		enterpriseHref += "&resource=new";
 		personHref += "&resource=new";
+		teamHref += "&resource=new";
 	}
 %>
 	<div id="wrapper">
@@ -55,6 +58,7 @@
 			<p><a href="<%=toolHref%>">Tool class</a></p>
 			<p><a href="<%=enterpriseHref%>">Enterprise class</a></p>
 			<p><a href="<%=personHref%>">Person class</a></p>
+			<p><a href="<%=teamHref%>">Team class</a></p>
 		</div>
 	</div>
 
