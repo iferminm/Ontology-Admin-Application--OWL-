@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.admin.owlmanager.OntologyManager;
+
 /**
  * Servlet implementation class AddAnnotationServlet
  */
@@ -41,23 +43,36 @@ public class AddAnnotationServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Map<String, String[]> map = request.getParameterMap();
+		String annotationName = THESIS_PREFIX + request.getParameter("annotation");
+		String className = request.getParameter("class");
 		
-		Set<String> keys = map.keySet();
-		Iterator<String> keysIterator = keys.iterator();
-
-		response.setContentType("text/html");
-		PrintWriter writer = response.getWriter();
+		OntologyManager manager = new OntologyManager();
+		boolean annotationAdd = true;
 		
-		while (keysIterator.hasNext()) {
-			String current = keysIterator.next();
-			String[] value = map.get(current);
-			writer.print(current + "--->" + " ");
-			for (int i = 0; i < value.length; i++) {
-				writer.print(value[i] + "  ");
+		if (!className.equals("noselect")) {
+			annotationAdd = annotationAdd && manager.addAnnotationURI(annotationName, className);
+		}
+		if (annotationAdd) {
+			if (className.endsWith("Concept")) {
+				String topic = request.getParameter("in-topic");
+				String relationType = request.getParameter("conceptrelation");
+				String relatedConcept = null;
+				if (!relationType.equals("noselect")) {
+					relatedConcept = request.getParameter("related");
+					annotationAdd = annotationAdd && manager.addTriplet(annotationName, THESIS_PREFIX + relationType, relatedConcept);
+				}
+				if (!topic.equals("noselect")) {
+					annotationAdd = annotationAdd && manager.addTriplet(annotationName, THESIS_PREFIX + "in-topic", topic);
+				}
+			} else {
+				Map<String, String[]> values = request.getParameterMap();
+				Set<String> keySet = values.keySet();
+				Iterator<String> iter = keySet.iterator();
+				while (iter.hasNext()) {
+					String current = iter.next();
+					System.out.println(current);
+				}
 			}
-			writer.println('\n');
 		}
 	}
-
 }
