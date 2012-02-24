@@ -331,9 +331,26 @@ public class OntologyManager {
 		return result;
 	}
 	
+	public boolean addAnnotationURI(String annotation, String type) {
+		boolean result = false;
+		OWLActor owl = new OWLActor();
+		
+		String modelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
+		String modelUrl = ConfigManager.getInstance().getProperty("baseModelPath");
+		
+		result = owl.addIndividual(modelPath, modelUrl, annotation, type);
+		
+		return result;
+	}
+	
 	public boolean addTriplet(String subject, String predicate, String object) {
 		boolean result = false;
+		OWLActor owl = new OWLActor();
 		
+		String modelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
+		String modelUrl = ConfigManager.getInstance().getProperty("baseModelPath");
+		
+		result = owl.addTripleStore(modelPath, modelUrl, subject, predicate, object);
 		
 		return result;
 	}
