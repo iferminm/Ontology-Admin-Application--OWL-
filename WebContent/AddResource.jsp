@@ -73,6 +73,7 @@
 						<%
 							// Filling the discipline select box 
 							out.write("<option value=\"noselect\">No Selection</option>");
+							out.write("<option value=\"invalid\">------------</option>");
 							iter = classes.iterator();
 							Statement dis = null;
 							while (iter.hasNext()) {
@@ -129,6 +130,27 @@
 						<td>Tool</td>
 						<td>
 							<select multiple name="tool" size="15">
+							<%
+							// Filling the tool select box 
+							out.write("<option value=\"noselect\">No Selection</option>");
+							out.write("<option value=\"invalid\">------------</option>");
+							iter = classes.iterator();
+							Statement tool = null;
+							while (iter.hasNext()) {
+								tool = iter.next();
+								if (tool.getCleanStatement().equalsIgnoreCase("tool")) {
+									break;
+								}
+							}
+							TreeSet<Statement> allTools = om.getClassInstances(tool.getStatement());
+							iter = allTools.iterator();
+							while (iter.hasNext()) {
+								Statement current = iter.next();
+								out.println("<option value=\"" + current.getStatement() + "\">" + 
+											current.getCleanStatement() + "</option>");
+							
+							}
+							%>
 							</select>
 						</td>
 					</tr>
@@ -137,6 +159,27 @@
 						<td>Enterprise</td>
 						<td>
 							<select multiple name="enterprise" size="15">
+							<%
+							// Filling the enterprise select box 
+							out.write("<option value=\"noselect\">No Selection</option>");
+							out.write("<option value=\"invalid\">------------</option>");
+							iter = classes.iterator();
+							Statement enterprise = null;
+							while (iter.hasNext()) {
+								enterprise = iter.next();
+								if (enterprise.getCleanStatement().equalsIgnoreCase("enterprise")) {
+									break;
+								}
+							}
+							TreeSet<Statement> allEnterprises = om.getClassInstances(enterprise.getStatement());
+							iter = allEnterprises.iterator();
+							while (iter.hasNext()) {
+								Statement current = iter.next();
+								out.println("<option value=\"" + current.getStatement() + "\">" + 
+											current.getCleanStatement() + "</option>");
+							
+							}
+							%>
 							</select>
 						</td>
 					</tr>
@@ -145,12 +188,62 @@
 						<td>Person</td>
 						<td>
 							<select multiple name="person" size="15">
+							<%
+							// Filling the person select box 
+							out.write("<option value=\"noselect\">No Selection</option>");
+							out.write("<option value=\"invalid\">------------</option>");
+							iter = classes.iterator();
+							Statement person = null;
+							while (iter.hasNext()) {
+								person = iter.next();
+								if (person.getCleanStatement().equalsIgnoreCase("person")) {
+									break;
+								}
+							}
+							TreeSet<Statement> allPersons = om.getClassInstances(person.getStatement());
+							iter = allPersons.iterator();
+							while (iter.hasNext()) {
+								Statement current = iter.next();
+								out.println("<option value=\"" + current.getStatement() + "\">" + 
+											current.getCleanStatement() + "</option>");
+							
+							}
+							%>
 							</select>
 						</td>
 					</tr>
-					<%
-						} // End of adding person
-					} // End adding other
+					<% } else if (contentType.equalsIgnoreCase("team")) { // End of person an enterprise and begin team %>
+					<tr>
+						<td>Team</td>
+						<td>
+							<select multiple name="team" size="15">
+							<%
+							// Filling the person select box 
+							out.write("<option value=\"noselect\">No Selection</option>");
+							out.write("<option value=\"invalid\">------------</option>");
+							iter = classes.iterator();
+							Statement team = null;
+							while (iter.hasNext()) {
+								team = iter.next();
+								if (team.getCleanStatement().equalsIgnoreCase("team")) {
+									break;
+								}
+							}
+							TreeSet<Statement> allTeams = om.getClassInstances(team.getStatement());
+							iter = allTeams.iterator();
+							while (iter.hasNext()) {
+								Statement current = iter.next();
+								out.println("<option value=\"" + current.getStatement() + "\">" + 
+											current.getCleanStatement() + "</option>");
+							
+							}
+							%>
+							</select>
+						</td>
+					</tr>
+					<% 
+							} // end adding team 
+						} // end adding other
 					%>
 				<tr>
 					<td colspan="2"><input type="submit" name="submit" value="Submit" /></td>
