@@ -27,7 +27,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>in-discipline</td>");
 	out.println("<td>");
-	out.println("<select name=\"discipline\" size=\"15\">");
+	out.println("<select name=\"in-discipline\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (disciplinesIterator.hasNext()) {
@@ -52,7 +52,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>in-knowledge-area</td>");
 	out.println("<td>");
-	out.println("<select name=\"knowledgearea\" size=\"15\">");
+	out.println("<select name=\"in-nowledge-area\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (knowledgeAreasIterator.hasNext()) {
@@ -77,7 +77,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>in-unit</td>");
 	out.println("<td>");
-	out.println("<select name=\"unit\" size=\"15\">");
+	out.println("<select name=\"in-unit\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (unitsIterator.hasNext()) {
@@ -103,7 +103,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>in-topic</td>");
 	out.println("<td>");
-	out.println("<select name=\"topic\" size=\"15\">");
+	out.println("<select name=\"in-topic\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (topicsIterator.hasNext()) {
@@ -155,7 +155,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>developed-by</td>");
 	out.println("<td>");
-	out.println("<select name=\"entity\" size=\"15\">");
+	out.println("<select name=\"developed-by\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (entitiesIterator.hasNext()) {
@@ -178,7 +178,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>implements</td>");
 	out.println("<td>");
-	out.println("<select name=\"concept\" size=\"15\">");
+	out.println("<select name=\"implements\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	Iterator<Statement> conceptsIterator = concepts.iterator();
@@ -205,7 +205,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>develops</td>");
 	out.println("<td>");
-	out.println("<select name=\"tool\" size=\"15\">");
+	out.println("<select name=\"develops\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (toolsIterator.hasNext()) {
@@ -227,7 +227,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>states</td>");
 	out.println("<td>");
-	out.println("<select name=\"concept\" size=\"15\">");
+	out.println("<select name=\"states\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (conceptsIterator.hasNext()) {
@@ -243,17 +243,18 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 
 /**************************************************************************************************************
 
-						Load concepts for the person to state
+						Load tools for the person to develop
 
 ***************************************************************************************************************/
 } else if (statement.getCleanStatement().equalsIgnoreCase("person")) {
 	TreeSet<Statement> tools = manager.getClassInstances(thesisPrefix + "Tool");
 	TreeSet<Statement> concepts = manager.getClassInstances(thesisPrefix + "Concept");
+	TreeSet<Statement> knowledgeAreas = manager.getClassInstances(thesisPrefix + "KnowledgeArea");
 	Iterator<Statement> toolsIterator = tools.iterator();
 	out.println("<tr>");
 	out.println("<td>develops</td>");
 	out.println("<td>");
-	out.println("<select name=\"tool\" size=\"15\">");
+	out.println("<select name=\"develops\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (toolsIterator.hasNext()) {
@@ -275,7 +276,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>states</td>");
 	out.println("<td>");
-	out.println("<select name=\"concept\" size=\"15\">");
+	out.println("<select name=\"states\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (conceptsIterator.hasNext()) {
@@ -289,13 +290,35 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("</td>");
 	out.println("</tr>");
 
+/**************************************************************************************************************
+
+				Load knowledge areas for the person to be reference in
+
+***************************************************************************************************************/
+Iterator<Statement> knowledgeAreasIterator = knowledgeAreas.iterator();
+out.println("<tr>");
+out.println("<td>is-reference-in</td>");
+out.println("<td>");
+out.println("<select name=\"is-reference-in\" size=\"15\">");
+out.println("<option selected value=\"noselect\">No Selection</option>");
+out.println("<option value=\"invalid\">-------------------</option>");
+while (knowledgeAreasIterator.hasNext()) {
+Statement current = knowledgeAreasIterator.next();
+String value = current.getStatement();
+String cleanValue = current.getCleanStatement();
+out.println("<option value='" + value + "'>" + cleanValue +"</option>");
+}
+
+out.println("</select>");
+out.println("</td>");
+out.println("</tr>");
+
 	
 /**************************************************************************************************************
 
 						Load concepts for the team to state
 
 ***************************************************************************************************************/
-
 } else if (statement.getCleanStatement().equalsIgnoreCase("team")) {
 	TreeSet<Statement> tools = manager.getClassInstances(thesisPrefix + "Tool");
 	TreeSet<Statement> concepts = manager.getClassInstances(thesisPrefix + "Concept");
@@ -303,7 +326,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>develops</td>");
 	out.println("<td>");
-	out.println("<select name=\"tool\" size=\"15\">");
+	out.println("<select name=\"develops\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (toolsIterator.hasNext()) {
@@ -316,6 +339,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("</select>");
 	out.println("</td>");
 	out.println("</tr>");
+	
 /**************************************************************************************************************
 
 					Load concepts for the team to state
@@ -325,7 +349,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<tr>");
 	out.println("<td>states</td>");
 	out.println("<td>");
-	out.println("<select name=\"concept\" size=\"15\">");
+	out.println("<select name=\"states\" size=\"15\">");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (conceptsIterator.hasNext()) {
