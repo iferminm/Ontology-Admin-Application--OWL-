@@ -200,7 +200,7 @@ public class OWLActor {
 	/**
 	 * Eliminates a given instance and all its relations and properties
 	 * @param modelPath model physical path to write
-	 * @param modelUrl model uel
+	 * @param modelUrl model url
 	 * @param individual target individual
 	 * @return true if everything went ok
 	 */
