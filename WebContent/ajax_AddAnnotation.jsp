@@ -125,6 +125,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	Iterator<Statement> conceptsIterator = concepts.iterator();
 	out.println("<tr>");
 	out.println("<td><select name=\"conceptrelation\">");
+	out.println("<option value=\"noselect\">Select a relation type</option>");
 	out.println("<option value=\"related-to\">related-to</option>");
 	out.println("<option value=\"preceded-by\">preceded-by</option>");
 	out.println("</td>");
@@ -231,7 +232,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (conceptsIterator.hasNext()) {
-		Statement current = toolsIterator.next();
+		Statement current = conceptsIterator.next();
 		String value = current.getStatement();
 		String cleanValue = current.getCleanStatement();
 		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
@@ -280,7 +281,7 @@ if (statement.getCleanStatement().equalsIgnoreCase("KnowledgeArea")) {
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (conceptsIterator.hasNext()) {
-		Statement current = toolsIterator.next();
+		Statement current = conceptsIterator.next();
 		String value = current.getStatement();
 		String cleanValue = current.getCleanStatement();
 		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
@@ -353,7 +354,7 @@ out.println("</tr>");
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (conceptsIterator.hasNext()) {
-		Statement current = toolsIterator.next();
+		Statement current = conceptsIterator.next();
 		String value = current.getStatement();
 		String cleanValue = current.getCleanStatement();
 		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
