@@ -27,6 +27,9 @@ public class AddResourceServlet extends HttpServlet {
 	private static final String DISCIPLINE = "discipline";
 	private static final String ENTITY = "entity";
 	private static final String TOOL = "tool";
+	private static final String ENTERPRISE = "enterprise";
+	private static final String TEAM = "team";
+	private static final String PERSON = "person";
 	private static final String URL = "uri";
        
     /**
@@ -70,6 +73,12 @@ public class AddResourceServlet extends HttpServlet {
 				result = map.get(ENTITY);
 			} else if ((keys.contains(TOOL)) && !(map.get(TOOL)[0].equalsIgnoreCase("invalid") || (map.get(TOOL)[0].equalsIgnoreCase("noselect")))) {
 				result = map.get(TOOL);
+			} else if ((keys.contains(TEAM)) && !(map.get(TEAM)[0].equalsIgnoreCase("invalid") || (map.get(TEAM)[0].equalsIgnoreCase("noselect")))) {
+				result = map.get(TEAM);
+			} else if ((keys.contains(PERSON)) && !(map.get(PERSON)[0].equalsIgnoreCase("invalid") || (map.get(PERSON)[0].equalsIgnoreCase("noselect")))) {
+				result = map.get(PERSON);
+			} else if ((keys.contains(ENTERPRISE)) && !(map.get(ENTERPRISE)[0].equalsIgnoreCase("invalid") || (map.get(ENTERPRISE)[0].equalsIgnoreCase("noselect")))) {
+				result = map.get(ENTERPRISE);
 			}
 		}
 		
