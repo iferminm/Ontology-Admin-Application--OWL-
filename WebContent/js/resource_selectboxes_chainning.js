@@ -118,7 +118,7 @@ function get_concepts(topicName) {
 	
 	var url = "ajax_AddResource.jsp?type=Concept";
 	url = url + "&name=" + escape(topicName);
-	url = url + "&relation=" + escape("in-tipoc");
+	url = url + "&relation=" + escape("in-topic");
 	url = url + "&next=" + escape("none");
 	url = url + "&id=" + id;
 	

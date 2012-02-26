@@ -46,8 +46,10 @@ while (classIterator.hasNext()) {
 String conditions = "?s <" + rdfPrefix +  "type> <" + thesisPrefix + type + "> . " +
 					"?s <" + thesisPrefix + relation + "> <" + name + ">";
 
+					
 // Getting the ResultSet as a TreeSet<Statement>
 TreeSet<Statement> options = om.oneResultQuery("?s", conditions);
+
 
 String select = "<select multiple name=\"" + type.toLowerCase() + "\" size=\"15\"";
 
