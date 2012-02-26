@@ -35,7 +35,7 @@
 				<p><a href="PreAddResource.jsp">Add Resource</a></p>
 			</div>
 			<div id="menuitem">
-				<p><a href="ViewResources.jsp">View Resource</a></p>			
+				<p><a href="ViewResources.jsp">View Resources</a></p>			
 			</div>
 			<div id="menuitem">
 				<p><a href="AddAnnotation.jsp">Add Annotation</a></p>			
