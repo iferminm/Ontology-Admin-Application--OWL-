@@ -13,18 +13,6 @@
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
-<%
-OntologyManager manager = new OntologyManager();
-TreeSet<Statement> classes = manager.getClasses();
-
-Iterator<Statement> iter = classes.iterator();
-
-while (iter.hasNext()) {
-	Statement current = iter.next();
-	System.out.println(current.toString());
-}
-
-%>
 	<div id="wrapper">
 		<div id="header">
 			<p> Este es el header</p>
