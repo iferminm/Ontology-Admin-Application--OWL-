@@ -6,19 +6,19 @@
 <%@ page import="java.util.Iterator" %>
 <%@ page import="java.net.URLEncoder" %>
 
-<% 
-String className = request.getParameter("className");
+<%
+	String className = request.getParameter("className");
 
 
 if ( (className.equalsIgnoreCase("noselect")) || (className.equalsIgnoreCase("invalid")) ) {
 	out.println("<h4>You must select a valid class<h4>");
 } else {
 	OntologyManager manager = new OntologyManager();
-	TreeSet<Statement> classInstances = manager.getClassInstances(className);
-	Iterator<Statement> iterator = classInstances.iterator();
+	TreeSet<MyStatement> classInstances = manager.getClassInstances(className);
+	Iterator<MyStatement> iterator = classInstances.iterator();
 
 	while (iterator.hasNext()) {
-		Statement currentInstance = iterator.next();
+		MyStatement currentInstance = iterator.next();
 		String printInstance = "<li><a href=\"EditAnnotation.jsp?annot=" + URLEncoder.encode(currentInstance.getStatement(), "UTF-8") + "\">";
 		printInstance += currentInstance.getCleanStatement() + "</a></li>";
 		out.println(printInstance);

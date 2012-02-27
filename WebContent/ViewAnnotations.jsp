@@ -16,11 +16,10 @@
 </head>
 <body>
 <%
-OntologyManager manager = new OntologyManager();
-TreeSet<Statement> classes = manager.getClasses();
+	OntologyManager manager = new OntologyManager();
+TreeSet<MyStatement> classes = manager.getClasses();
 
-Iterator<Statement> classesIterator = classes.iterator();
-
+Iterator<MyStatement> classesIterator = classes.iterator();
 %>
 	<div id="wrapper">
 		<div id="header">
@@ -54,14 +53,14 @@ Iterator<Statement> classesIterator = classes.iterator();
 							<option value="noselect">Select a class</option>
 							<option value="invalid">--------------</option>
 							<%
-							while (classesIterator.hasNext()) {
-								Statement currentClass = classesIterator.next();
-								if (!currentClass.getCleanStatement().equalsIgnoreCase("resource")) {
-									String option = "<option value=\"" + currentClass.getStatement() + "\">";
-									option += currentClass.getCleanStatement() + "</option>";
-									out.println(option);
-								}
-							}
+								while (classesIterator.hasNext()) {
+													MyStatement currentClass = classesIterator.next();
+													if (!currentClass.getCleanStatement().equalsIgnoreCase("resource")) {
+														String option = "<option value=\"" + currentClass.getStatement() + "\">";
+														option += currentClass.getCleanStatement() + "</option>";
+														out.println(option);
+													}
+												}
 							%>
 						</select>
 					</td>

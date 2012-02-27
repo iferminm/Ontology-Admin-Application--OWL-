@@ -10,16 +10,16 @@ public class Triplet {
 	
 	
 	
-	private Statement subject;
-	private Statement predicate;
-	private Statement object;
+	private MyStatement subject;
+	private MyStatement predicate;
+	private MyStatement object;
 	
 	public Triplet() { }
 	
 	public Triplet (String s, String p, String o) {
-		this.subject = new Statement(s);
-		this.predicate = new Statement(p);
-		this.object = new Statement(o);
+		this.subject = new MyStatement(s);
+		this.predicate = new MyStatement(p);
+		this.object = new MyStatement(o);
 	}
 
 	/******************************************************************

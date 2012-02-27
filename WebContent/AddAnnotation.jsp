@@ -16,8 +16,8 @@
 <body>
 	<%
 		OntologyManager om = new OntologyManager();
-		TreeSet<Statement> classes = om.getClasses();
-		Iterator<Statement> iter = classes.iterator();
+			TreeSet<MyStatement> classes = om.getClasses();
+			Iterator<MyStatement> iter = classes.iterator();
 	%>
 	<div id="wrapper">
 		<div id="header">
@@ -59,14 +59,14 @@
 								<option value="invalid">--------------</option>
 								<%
 									while (iter.hasNext()) {
-										Statement current = iter.next();
-										if ( (!current.getCleanStatement().equalsIgnoreCase("Resource")) && 
-											(!current.getCleanStatement().equalsIgnoreCase("Entity")) ) {
-										
-											out.println("<option value=\"" + current.getStatement() + "\">" + 
-														current.getCleanStatement() + "</option>");
-										}
-									}
+																MyStatement current = iter.next();
+																if ( (!current.getCleanStatement().equalsIgnoreCase("Resource")) && 
+																	(!current.getCleanStatement().equalsIgnoreCase("Entity")) ) {
+																
+																	out.println("<option value=\"" + current.getStatement() + "\">" + 
+																				current.getCleanStatement() + "</option>");
+																}
+															}
 								%>
 							</select>
 						</td>

@@ -40,20 +40,20 @@
 			<br />
 			<%
 				final String RESOURCE_CLASS = "http://localhost/ontologies/ThesisOntology.owl#Resource";
-				OntologyManager om = new OntologyManager();
-				TreeSet<Statement> resources = om.getClassInstances(RESOURCE_CLASS);
-				Iterator<Statement> iter = resources.iterator();
-				out.write("<table width=\"100%\">");
-				while (iter.hasNext()) {
-					String text = iter.next().toString();
-					String URLText = URLEncoder.encode(text, "UTF-8");
-					out.write("<tr>");
-					out.write("<td>");
-					out.write("<p align=\"center\"><a href=\"EditResource.jsp?id=" + URLText + "\">" + text + "</a></p>");
-					out.write("</td>");
-					out.write("</tr>");
-				}
-				out.write("</table>");
+					OntologyManager om = new OntologyManager();
+					TreeSet<MyStatement> resources = om.getClassInstances(RESOURCE_CLASS);
+					Iterator<MyStatement> iter = resources.iterator();
+					out.write("<table width=\"100%\">");
+					while (iter.hasNext()) {
+						String text = iter.next().toString();
+						String URLText = URLEncoder.encode(text, "UTF-8");
+						out.write("<tr>");
+						out.write("<td>");
+						out.write("<p align=\"center\"><a href=\"EditResource.jsp?id=" + URLText + "\">" + text + "</a></p>");
+						out.write("</td>");
+						out.write("</tr>");
+					}
+					out.write("</table>");
 			%>
 		</div>
 	</div>

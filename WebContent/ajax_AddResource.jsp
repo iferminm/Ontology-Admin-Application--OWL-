@@ -6,8 +6,7 @@
 <%@ page import="com.admin.domain.*" %>
 
 <%
-
-OntologyManager om = new OntologyManager();
+	OntologyManager om = new OntologyManager();
 
 /*
 	Type is the target ontology class we're
@@ -30,9 +29,9 @@ String next = request.getParameter("next");
 String rdfPrefix = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
 String thesisPrefix = "http://localhost/ontologies/ThesisOntology.owl#";
 
-TreeSet<Statement> classes = om.getClasses();
-Statement targetClass = null;
-Iterator<Statement> classIterator = classes.iterator();
+TreeSet<MyStatement> classes = om.getClasses();
+MyStatement targetClass = null;
+Iterator<MyStatement> classIterator = classes.iterator();
 
 // We get the complete name for the target class we want instances from
 while (classIterator.hasNext()) {
@@ -44,11 +43,11 @@ while (classIterator.hasNext()) {
 
 // Building the query conditions
 String conditions = "?s <" + rdfPrefix +  "type> <" + thesisPrefix + type + "> . " +
-					"?s <" + thesisPrefix + relation + "> <" + name + ">";
+			"?s <" + thesisPrefix + relation + "> <" + name + ">";
 
-					
+			
 // Getting the ResultSet as a TreeSet<Statement>
-TreeSet<Statement> options = om.oneResultQuery("?s", conditions);
+TreeSet<MyStatement> options = om.oneResultQuery("?s", conditions);
 
 
 String select = "<select multiple name=\"" + type.toLowerCase() + "\" size=\"15\"";
@@ -62,11 +61,11 @@ select += ">";
 out.println(select);
 // Filling the select with the query result set 
 if (options.size() > 0) {
-	Iterator<Statement> iter = options.iterator();
+	Iterator<MyStatement> iter = options.iterator();
 	out.println("<option selected value=\"noselect\">No Selection</option>");
 	out.println("<option value=\"invalid\">-------------------</option>");
 	while (iter.hasNext()) {
-		Statement current = iter.next();
+		MyStatement current = iter.next();
 		String value = current.getStatement();
 		String cleanValue = current.getCleanStatement();
 		out.println("<option value='" + value + "'>" + cleanValue +"</option>");
@@ -76,5 +75,4 @@ if (options.size() > 0) {
 }
 
 out.println("</select>");
-
 %>

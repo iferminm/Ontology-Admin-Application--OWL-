@@ -39,11 +39,10 @@
 		</div>
 		<div id="contentwrapper">
 		<%
-				OntologyManager om = new OntologyManager();
+			OntologyManager om = new OntologyManager();
 				
-				TreeSet<Statement> annotations = om.getResourceAnnotations(resource);
-				Iterator<Statement> iter = annotations.iterator();
-				
+				TreeSet<MyStatement> annotations = om.getResourceAnnotations(resource);
+				Iterator<MyStatement> iter = annotations.iterator();
 		%>
 			<form action="EditResourceServlet" method="POST">
 				<h2>Editing Resource: <i><a href="<%=resource%>" target="_blank"><%=resource%></a></i></h2>
@@ -57,10 +56,10 @@
 				<p><b>Annotations:</b></p>
 				<%
 					while (iter.hasNext()) {
-						Statement current = iter.next();
-						out.println("<input type=\"checkbox\" name=\"" + current.getStatement() + "\">" + current.getCleanStatement());
-						out.println("<br />");
-					}
+								MyStatement current = iter.next();
+								out.println("<input type=\"checkbox\" name=\"" + current.getStatement() + "\">" + current.getCleanStatement());
+								out.println("<br />");
+							}
 				%>
 				<br />
 				<input type="submit" value="Submit" />

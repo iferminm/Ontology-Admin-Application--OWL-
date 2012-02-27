@@ -14,10 +14,11 @@
 </head>
 <body>
 <%
-String annotationName = request.getParameter("annot");
+	String annotationName = request.getParameter("annot");
 OntologyManager manager = new OntologyManager();
-TreeSet<Statement> relations = null;
+TreeSet<MyStatement> relations = null;
 System.out.println(annotationName);
+manager.getAnnotationProperties(annotationName);
 %>
 	<div id="wrapper">
 		<div id="header">
@@ -43,7 +44,8 @@ System.out.println(annotationName);
 		<div id="contentwrapper">
 			<form action="EditAnnotationServlet" method="post">
 				<h2>Editing Annotation: <%=annotationName %></h2>
-			
+				<br />
+				
 			</form>
 		</div>
 	</div>
