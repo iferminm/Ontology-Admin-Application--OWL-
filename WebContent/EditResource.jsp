@@ -57,7 +57,7 @@
 				<%
 					while (iter.hasNext()) {
 								MyStatement current = iter.next();
-								out.println("<input type=\"checkbox\" name=\"" + current.getStatement() + "\">" + current.getCleanStatement());
+								out.println("<input type=\"checkbox\" name=\"" + current.getStatement() + "\" />" + current.getCleanStatement());
 								out.println("<br />");
 							}
 				%>
