@@ -5,8 +5,7 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 import com.admin.config.ConfigManager;
-import com.admin.domain.MyStatement;
-import com.admin.domain.Triplet;
+import com.admin.domain.*;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.query.QuerySolution;
