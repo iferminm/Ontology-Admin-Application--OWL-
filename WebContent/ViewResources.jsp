@@ -4,6 +4,8 @@
 <%@ page import="com.admin.owlmanager.OntologyManager" %>
 <%@ page import="java.util.TreeSet" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="java.net.URLEncoder" %>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -44,9 +46,10 @@
 				out.write("<table width=\"100%\">");
 				while (iter.hasNext()) {
 					String text = iter.next().toString();
+					String URLText = URLEncoder.encode(text, "UTF-8");
 					out.write("<tr>");
 					out.write("<td>");
-					out.write("<p align=\"center\"><a href=\"EditResource.jsp?id=" + text + "\">" + text + "</a></p>");
+					out.write("<p align=\"center\"><a href=\"EditResource.jsp?id=" + URLText + "\">" + text + "</a></p>");
 					out.write("</td>");
 					out.write("</tr>");
 				}

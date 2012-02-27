@@ -4,6 +4,7 @@
 <%@ page import="com.admin.domain.*" %>
 <%@ page import="java.util.TreeSet" %>
 <%@ page import="java.util.Iterator" %>
+<%@ page import="java.net.URLEncoder" %>
 
 <% 
 String className = request.getParameter("className");
@@ -18,7 +19,7 @@ if ( (className.equalsIgnoreCase("noselect")) || (className.equalsIgnoreCase("in
 
 	while (iterator.hasNext()) {
 		Statement currentInstance = iterator.next();
-		String printInstance = "<li><a href=\"EditAnnotation.jsp?annot=" + currentInstance.getStatement() + "\">";
+		String printInstance = "<li><a href=\"EditAnnotation.jsp?annot=" + URLEncoder.encode(currentInstance.getStatement(), "UTF-8") + "\">";
 		printInstance += currentInstance.getCleanStatement() + "</a></li>";
 		out.println(printInstance);
 	}
