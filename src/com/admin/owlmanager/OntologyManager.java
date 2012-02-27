@@ -331,6 +331,12 @@ public class OntologyManager {
 		return result;
 	}
 	
+	/**
+	 * Adds a new annotation URI on the base model
+	 * @param annotation the annotation we're going to add
+	 * @param type the annotation type or class
+	 * @return true if everything went OK
+	 */
 	public boolean addAnnotationURI(String annotation, String type) {
 		boolean result = false;
 		OWLActor owl = new OWLActor();
@@ -343,6 +349,13 @@ public class OntologyManager {
 		return result;
 	}
 	
+	/**
+	 * Adds a new triple to the base model
+	 * @param subject the resource
+	 * @param predicate the relation
+	 * @param object the type
+	 * @return true if everything went ok
+	 */
 	public boolean addTriplet(String subject, String predicate, String object) {
 		boolean result = false;
 		OWLActor owl = new OWLActor();
@@ -352,6 +365,12 @@ public class OntologyManager {
 		
 		
 		result = owl.addTripleStore(modelPath, modelUrl, subject, predicate, object);
+		
+		return result;
+	}
+	
+	public TreeSet<Triplet> getAnnotationProperties(String annotationURI) {
+		TreeSet<Triplet> result = new TreeSet<Triplet>();
 		
 		return result;
 	}
