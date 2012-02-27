@@ -16,6 +16,9 @@
 <%
 OntologyManager manager = new OntologyManager();
 TreeSet<Statement> classes = manager.getClasses();
+
+Iterator<Statement> iter = classes.iterator();
+
 %>
 	<div id="wrapper">
 		<div id="header">
@@ -40,8 +43,29 @@ TreeSet<Statement> classes = manager.getClasses();
 		</div>
 		<div id="contentwrapper">
 			<h2>Available Annotations</h2>
-			
 			<br />
+			<%
+			while (iter.hasNext()) {
+				Statement currentClass = iter.next();
+				if (currentClass.getCleanStatement().equalsIgnoreCase("resource")) {
+					System.out.println("Es Recurso, no hago nada");
+					continue;
+				} else {
+					String printClass = "<p><b>On class: " + currentClass.getCleanStatement() + ":</b></p>";
+					out.println(printClass);
+					TreeSet<Statement> classAnnotations = manager.getClassInstances(currentClass.getStatement());
+					Iterator<Statement> iterator = classAnnotations.iterator();
+					out.println("<ul>");
+					while (iterator.hasNext()) {
+						Statement currentInstance = iterator.next();
+						String printInstance = "<li><a href=\"EditAnnotation.jsp?annot=" + currentInstance.getStatement() + "\">";
+						printInstance += currentInstance.getCleanStatement() + "</a></li>";
+						out.println(printInstance);
+					}
+					out.println("</ul>");
+				}
+			}
+			%>
 			
 		</div>
 	</div>
