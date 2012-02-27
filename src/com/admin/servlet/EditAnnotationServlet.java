@@ -2,6 +2,7 @@ package com.admin.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.net.URLEncoder;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -48,12 +49,10 @@ public class EditAnnotationServlet extends HttpServlet {
 		if (action.equals("delete_annotation")) {
 			OntologyManager manager = new OntologyManager();
 			result = result && manager.deleteResource(annotationName);
-			
-			writer.println("Borrar la anotación: " + annotationName);
 		} else if (action.equals("delete_properties")) {
 			writer.println("A Borrar propiedades");
 		} else if (action.equals("add_properties")) {
-			writer.println("Agregaremos propiedades");
+			response.sendRedirect("AddAnnotation.jsp?edit=" + URLEncoder.encode(annotationName, "UTF-8"));
 		}
 		
 		if (result) {

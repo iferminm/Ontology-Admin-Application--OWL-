@@ -16,8 +16,12 @@
 <body>
 	<%
 		OntologyManager om = new OntologyManager();
-			TreeSet<MyStatement> classes = om.getClasses();
-			Iterator<MyStatement> iter = classes.iterator();
+		TreeSet<MyStatement> classes = om.getClasses();
+		Iterator<MyStatement> iter = classes.iterator();
+		String edit = "new";
+		if (!request.getParameterMap().keySet().isEmpty()) {
+			edit = request.getParameter("edit").split("#")[1];
+		}
 	%>
 	<div id="wrapper">
 		<div id="header">
@@ -48,7 +52,11 @@
 					<tr>
 						<td>Annotation name</td>
 						<td>
-							<input class="text" type="text" size="20" name="annotation" />
+							<% if (edit.equals("new")) { %>
+								<input class="text" type="text" size="20" name="annotation" />
+							<% } else { %>
+								<input class="text" type="text" size="20" value="<%=edit%>" name="annotation" readonly="readonly" />
+							<% } %>
 						</td>
 					</tr>
 					<tr>
@@ -59,14 +67,13 @@
 								<option value="invalid">--------------</option>
 								<%
 									while (iter.hasNext()) {
-																MyStatement current = iter.next();
-																if ( (!current.getCleanStatement().equalsIgnoreCase("Resource")) && 
-																	(!current.getCleanStatement().equalsIgnoreCase("Entity")) ) {
-																
-																	out.println("<option value=\"" + current.getStatement() + "\">" + 
-																				current.getCleanStatement() + "</option>");
-																}
-															}
+										MyStatement current = iter.next();
+										if ( (!current.getCleanStatement().equalsIgnoreCase("Resource")) && 
+											(!current.getCleanStatement().equalsIgnoreCase("Entity")) ) {
+											out.println("<option value=\"" + current.getStatement() + "\">" + 
+											current.getCleanStatement() + "</option>");
+										}
+									}
 								%>
 							</select>
 						</td>
