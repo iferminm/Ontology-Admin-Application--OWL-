@@ -372,6 +372,11 @@ public class OntologyManager {
 		return result;
 	}
 	
+	/**
+	 * Gets all the properties for a given annotation
+	 * @param annotationURI annotation resource identifier
+	 * @return an ArrayList<Triplet> with all the properties
+	 */
 	public ArrayList<Triplet> getAnnotationProperties(String annotationURI) {
 		ArrayList<Triplet> result = new ArrayList<Triplet>();
 		OWLActor actor = new OWLActor();
