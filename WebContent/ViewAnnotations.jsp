@@ -10,6 +10,7 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Stylesheet" href="css/GeneralStyle.css" type="text/css" />
+<script language="JavaScript" type="text/javascript" src="js/class_instance_chainning.js"></script>
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
@@ -17,7 +18,7 @@
 OntologyManager manager = new OntologyManager();
 TreeSet<Statement> classes = manager.getClasses();
 
-Iterator<Statement> iter = classes.iterator();
+Iterator<Statement> classesIterator = classes.iterator();
 
 %>
 	<div id="wrapper">
@@ -44,29 +45,30 @@ Iterator<Statement> iter = classes.iterator();
 		<div id="contentwrapper">
 			<h2>Available Annotations</h2>
 			<br />
-			<%
-			while (iter.hasNext()) {
-				Statement currentClass = iter.next();
-				if (currentClass.getCleanStatement().equalsIgnoreCase("resource")) {
-					System.out.println("Es Recurso, no hago nada");
-					continue;
-				} else {
-					String printClass = "<p><b>On class: " + currentClass.getCleanStatement() + ":</b></p>";
-					out.println(printClass);
-					TreeSet<Statement> classAnnotations = manager.getClassInstances(currentClass.getStatement());
-					Iterator<Statement> iterator = classAnnotations.iterator();
-					out.println("<ul>");
-					while (iterator.hasNext()) {
-						Statement currentInstance = iterator.next();
-						String printInstance = "<li><a href=\"EditAnnotation.jsp?annot=" + currentInstance.getStatement() + "\">";
-						printInstance += currentInstance.getCleanStatement() + "</a></li>";
-						out.println(printInstance);
-					}
-					out.println("</ul>");
-				}
-			}
-			%>
+			<table width="80%">
+				<tr>
+					<td>Class Name:</td>
+					<td>
+						<select name="class" onchange="getClassInstances(this.value)">
+							<option value="noselect">Select a class</option>
+							<option value="invalid">--------------</option>
+							<%
+							while (classesIterator.hasNext()) {
+								Statement currentClass = classesIterator.next();
+								if (!currentClass.getCleanStatement().equalsIgnoreCase("resource")) {
+									String option = "<option value=\"" + currentClass.getStatement() + "\">";
+									option += currentClass.getCleanStatement() + "</option>";
+									out.println(option);
+								}
+							}
+							%>
+						</select>
+					</td>
+				</tr>
+			</table>
+			<div id="result_annotations">
 			
+			</div>
 		</div>
 	</div>
 </body>

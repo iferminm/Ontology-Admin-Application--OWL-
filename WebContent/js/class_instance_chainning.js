@@ -15,7 +15,7 @@ function getClassInstances(className) {
 	today = new Date();
     id= Math.abs(Math.sin(today.getTime()));
 	
-	var url = "ajax_AddResource.jsp";
+	var url = "ajax_ViewAnnotations.jsp";
 	url = url + "?className=" + escape(className);
 	url = url + "&id=" + id;
 	
@@ -30,6 +30,6 @@ function getClassInstances(className) {
  */
 function result_instances() {
 	if (xmlHttp.readyState == 4) {
-		document.getElementById("result_instances").innerHTML=xmlHttp.responseText;
+		document.getElementById("result_annotations").innerHTML=xmlHttp.responseText;
 	}
 }
