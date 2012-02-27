@@ -372,8 +372,8 @@ public class OntologyManager {
 		return result;
 	}
 	
-	public TreeSet<Triplet> getAnnotationProperties(String annotationURI) {
-		TreeSet<Triplet> result = new TreeSet<Triplet>();
+	public ArrayList<Triplet> getAnnotationProperties(String annotationURI) {
+		ArrayList<Triplet> result = new ArrayList<Triplet>();
 		OWLActor actor = new OWLActor();
 		StmtIterator iter = actor.getAllIndividualProperties(ConfigManager.getInstance().getProperty("baseModelPath"), annotationURI);
 		
