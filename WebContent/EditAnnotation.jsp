@@ -3,6 +3,7 @@
 <%@ page import="com.admin.owlmanager.OntologyManager" %>
 <%@ page import="com.admin.domain.*" %>
 <%@ page import="java.util.TreeSet" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="java.util.Iterator" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -14,11 +15,11 @@
 </head>
 <body>
 <%
-	String annotationName = request.getParameter("annot");
+String annotationName = request.getParameter("annot");
 OntologyManager manager = new OntologyManager();
-TreeSet<MyStatement> relations = null;
-System.out.println(annotationName);
-manager.getAnnotationProperties(annotationName);
+ArrayList<Triplet> relations = manager.getAnnotationProperties(annotationName);
+Iterator<Triplet> iterator = relations.iterator();
+final String THESIS_PREFIX = "http://localhost/ontologies/ThesisOntology.owl";
 %>
 	<div id="wrapper">
 		<div id="header">
@@ -45,7 +46,32 @@ manager.getAnnotationProperties(annotationName);
 			<form action="EditAnnotationServlet" method="post">
 				<h2>Editing Annotation: <%=annotationName %></h2>
 				<br />
+				<p><b>Select an action:</b></p>
+				<input type="radio" checked name="action" value="delete_annotation" />Delete current annotation <br />
+				<input type="radio" name="action" value="delete_properties" />Delete selected properties <br />
+				<input type="radio" name="action" value="add_properties" />Add properties <br />
+				<input type="hidden" name="annotation" value="<%=annotationName%>" />
+				<br />
+				<p><b>Properties:</b></p>
+				<%
+				while (iterator.hasNext()) {
+					Triplet currentTriplet = iterator.next();
+					if (currentTriplet.getPredicate().startsWith(THESIS_PREFIX)) {
+						String predicate = currentTriplet.getPredicate();
+						String object = currentTriplet.getObject();
+						String simplePredicate = currentTriplet.getSimplePredicate();
+						String simpleObject = currentTriplet.getSimpleObject();
+						
+						String property = "<input type=\"checkbox\" name=\"" + predicate + "\" value=\"" + object + "\" />";
+						property += simplePredicate + ": " + simpleObject;
+						
+						out.println(property);
+						
+					}
+				}
+				%>
 				
+				<input type="submit" value="Submit" />
 			</form>
 		</div>
 	</div>
