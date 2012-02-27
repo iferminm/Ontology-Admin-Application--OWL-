@@ -5,13 +5,17 @@ import java.util.Iterator;
 import java.util.TreeSet;
 
 import com.admin.config.ConfigManager;
-import com.admin.domain.Statement;
+import com.admin.domain.MyStatement;
 import com.admin.domain.Triplet;
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntProperty;
 import com.hp.hpl.jena.query.QuerySolution;
 import com.hp.hpl.jena.query.ResultSet;
+import com.hp.hpl.jena.rdf.model.Property;
 import com.hp.hpl.jena.rdf.model.RDFNode;
+import com.hp.hpl.jena.rdf.model.Resource;
+import com.hp.hpl.jena.rdf.model.Statement;
+import com.hp.hpl.jena.rdf.model.StmtIterator;
 import com.hp.hpl.jena.util.iterator.ExtendedIterator;
 
 /**
@@ -93,13 +97,13 @@ public class OntologyManager {
 	 * Gets all the classes of the owls base model
 	 * @return All classes as a TreeSet<Statement>
 	 */
-	public TreeSet<Statement> getClasses() {
-		TreeSet<Statement> result = new TreeSet<Statement>();
+	public TreeSet<MyStatement> getClasses() {
+		TreeSet<MyStatement> result = new TreeSet<MyStatement>();
 		ExtendedIterator<OntClass> iter = new OWLActor().getClasses(ConfigManager.getInstance().getProperty("baseModelPath"));
 		
 		while (iter.hasNext()) {
 			OntClass c = iter.next();
-			result.add(new Statement(c.toString()));
+			result.add(new MyStatement(c.toString()));
 		}
 		
 		return result;
@@ -111,13 +115,13 @@ public class OntologyManager {
 	 * @param className the complete class' name
 	 * @return all the class' instances
 	 */
-	public TreeSet<Statement> getClassInstances(String className) {
-		TreeSet<Statement> result = new TreeSet<Statement>();
+	public TreeSet<MyStatement> getClassInstances(String className) {
+		TreeSet<MyStatement> result = new TreeSet<MyStatement>();
 		ExtendedIterator<?> iter = new OWLActor().getInstances(ConfigManager.getInstance()
 													.getProperty("baseModelPath"), className);
 		while (iter.hasNext()) {
 			Object i = iter.next();
-			result.add(new Statement(i.toString()));
+			result.add(new MyStatement(i.toString()));
 		}
 
 		return result;
@@ -145,14 +149,14 @@ public class OntologyManager {
 	 * @param rs The ResultSet object
 	 * @return All the ResultSet's Stataments as TreeSet<Statement>
 	 */
-	private TreeSet<Statement> populateOneResult(ResultSet rs) {
-		TreeSet<Statement> result = new TreeSet<Statement>();
+	private TreeSet<MyStatement> populateOneResult(ResultSet rs) {
+		TreeSet<MyStatement> result = new TreeSet<MyStatement>();
 		
 		while (rs.hasNext()) {
 			QuerySolution solution = rs.nextSolution();
 			String varName = this.getVarNames(solution).get(1);
 			RDFNode node = solution.get(varName);
-			result.add(new Statement(node.toString()));
+			result.add(new MyStatement(node.toString()));
 		}
 		
 		return result;
@@ -166,7 +170,7 @@ public class OntologyManager {
 	 * @param whereConditions the "ready to use" conditions to be satisfied by the WHERE clause
 	 * @return The ResultSet as a TreeSet<Statement>
 	 */
-	public TreeSet<Statement> oneResultQuery(String select, String whereConditions) {
+	public TreeSet<MyStatement> oneResultQuery(String select, String whereConditions) {
 		String graphName = ConfigManager.getInstance().getProperty("graphName");
 		
 		String query = "SELECT " + select + " FROM <" + graphName + "> WHERE { " + whereConditions + " }";
@@ -182,12 +186,12 @@ public class OntologyManager {
 	 * @param requestedClass name of the requested class
 	 * @return the requested class' statement
 	 */
-	public Statement getSingleClass(String requestedClass) {
-		TreeSet<Statement> classes = this.getClasses();
-		Iterator<Statement> iter = classes.iterator();
+	public MyStatement getSingleClass(String requestedClass) {
+		TreeSet<MyStatement> classes = this.getClasses();
+		Iterator<MyStatement> iter = classes.iterator();
 		
 		while (iter.hasNext()) {
-			Statement current = iter.next();
+			MyStatement current = iter.next();
 			if (current.getStatement().equalsIgnoreCase(requestedClass)) {
 				return current;
 			}
@@ -201,12 +205,12 @@ public class OntologyManager {
 	 * @param requestedClassClean clean name for the requested class (with no prefix)
 	 * @return the requested statement (with prefix)
 	 */
-	public Statement getSingleClassClean(String requestedClassClean) {
-		TreeSet<Statement> classes = this.getClasses();
-		Iterator<Statement> iter = classes.iterator();
+	public MyStatement getSingleClassClean(String requestedClassClean) {
+		TreeSet<MyStatement> classes = this.getClasses();
+		Iterator<MyStatement> iter = classes.iterator();
 		
 		while (iter.hasNext()) {
-			Statement current = iter.next();
+			MyStatement current = iter.next();
 			if (current.getCleanStatement().equalsIgnoreCase(requestedClassClean)) {
 				return current;
 			}
@@ -219,14 +223,14 @@ public class OntologyManager {
 	 * Gets all properties on the model
 	 * @return All the properties as TreeSet<Statement>
 	 */
-	private TreeSet<Statement> getAllProperties() {
-		TreeSet<Statement> result = new TreeSet<Statement>();
+	private TreeSet<MyStatement> getAllProperties() {
+		TreeSet<MyStatement> result = new TreeSet<MyStatement>();
 		OWLActor owl = new OWLActor();
 		ExtendedIterator<OntProperty> iter = owl.getProperties(ConfigManager.getInstance().getProperty("baseModelPath"));
 		
 		while (iter.hasNext()) {
 			OntProperty current = iter.next();
-			result.add(new Statement(current.toString()));
+			result.add(new MyStatement(current.toString()));
 		}
 		
 		return result;
@@ -237,10 +241,10 @@ public class OntologyManager {
 	 * @param cleanName name we're looking for
 	 * @return the requested statement
 	 */
-	private Statement getSinglePropertyClean(String cleanName) {
-		TreeSet<Statement> properties = this.getAllProperties();
-		Statement result = null;
-		Iterator<Statement> iter = properties.iterator();
+	private MyStatement getSinglePropertyClean(String cleanName) {
+		TreeSet<MyStatement> properties = this.getAllProperties();
+		MyStatement result = null;
+		Iterator<MyStatement> iter = properties.iterator();
 		
 		while (iter.hasNext()) {
 			result = iter.next();
@@ -262,8 +266,8 @@ public class OntologyManager {
 		String writeModelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
 		String modelURL = ConfigManager.getInstance().getProperty("baseModelPath");
 		OWLActor owl = new OWLActor();
-		Statement cls = this.getSingleClassClean("resource");
-		Statement relation = this.getSinglePropertyClean("has-annotation");
+		MyStatement cls = this.getSingleClassClean("resource");
+		MyStatement relation = this.getSinglePropertyClean("has-annotation");
 		
 		boolean resultIndividual = owl.addIndividual(writeModelPath, modelURL, resource, cls.getStatement());
 		boolean resultTriples = true;
@@ -295,8 +299,8 @@ public class OntologyManager {
 	 * @param resource URI
 	 * @return all the resource's properties as a TreeSet<Statement>
 	 */
-	public TreeSet<Statement> getResourceAnnotations(String resource) {
-		TreeSet<Statement> result = new TreeSet<Statement>();
+	public TreeSet<MyStatement> getResourceAnnotations(String resource) {
+		TreeSet<MyStatement> result = new TreeSet<MyStatement>();
 		OWLActor owl = new OWLActor();
 		ArrayList<RDFNode> values = owl.getIndividualPropertyValues(ConfigManager.getInstance().getProperty("baseModelPath"), 
 									resource, "http://localhost/ontologies/ThesisOntology.owl#has-annotation");
@@ -305,7 +309,7 @@ public class OntologyManager {
 		
 		while (iter.hasNext()) {
 			RDFNode current = iter.next();
-			result.add(new Statement(current.toString()));
+			result.add(new MyStatement(current.toString()));
 		}
 		
 		return result;
@@ -371,6 +375,17 @@ public class OntologyManager {
 	
 	public TreeSet<Triplet> getAnnotationProperties(String annotationURI) {
 		TreeSet<Triplet> result = new TreeSet<Triplet>();
+		OWLActor actor = new OWLActor();
+		StmtIterator iter = actor.getAllIndividualProperties(ConfigManager.getInstance().getProperty("baseModelPath"), annotationURI);
+		
+		while (iter.hasNext()) {
+			Statement current = iter.next();
+			Resource res = current.getSubject();
+			Property prop = current.getPredicate();
+			RDFNode node = current.getObject();
+			Triplet toResult = new Triplet(res.toString(), prop.toString(), node.toString());
+			result.add(toResult);
+		}
 		
 		return result;
 	}

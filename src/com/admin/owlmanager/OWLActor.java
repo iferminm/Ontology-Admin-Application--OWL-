@@ -290,4 +290,15 @@ public class OWLActor {
 		
 		return result;
 	}
+	
+	public StmtIterator getAllIndividualProperties(String modelURL, String individualURI) {
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelURL);
+		
+		Individual individual = model.getIndividual(individualURI);
+		
+		StmtIterator iter = individual.listProperties();
+		
+		return iter;
+	}
 }
