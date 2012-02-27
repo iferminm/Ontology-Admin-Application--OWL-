@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.admin.owlmanager.OntologyManager;
+
 /**
  * Servlet implementation class EditAnnotationServlet
  */
@@ -37,17 +39,29 @@ public class EditAnnotationServlet extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
-		
+		String annotationName = request.getParameter("annotation");
+		boolean result = true;
 		response.setContentType("text/html");
 		
 		PrintWriter writer = response.getWriter();
 		
 		if (action.equals("delete_annotation")) {
-			writer.println("Borrar la anotación");
+			OntologyManager manager = new OntologyManager();
+			result = result && manager.deleteResource(annotationName);
+			
+			writer.println("Borrar la anotación: " + annotationName);
 		} else if (action.equals("delete_properties")) {
 			writer.println("A Borrar propiedades");
 		} else if (action.equals("add_properties")) {
 			writer.println("Agregaremos propiedades");
 		}
+		
+		if (result) {
+			writer.println("SUCCESS");
+		} else {
+			writer.write("ERROR");
+		}
+		
+		writer.close();
 	}
 }
