@@ -63,14 +63,14 @@ final String THESIS_PREFIX = "http://localhost/ontologies/ThesisOntology.owl";
 						String simpleObject = currentTriplet.getSimpleObject();
 						
 						String property = "<input type=\"checkbox\" name=\"" + predicate + "\" value=\"" + object + "\" />";
-						property += simplePredicate + ": " + simpleObject;
+						property += simplePredicate + ": " + simpleObject + "<br />";
 						
 						out.println(property);
 						
 					}
 				}
 				%>
-				
+				<br />
 				<input type="submit" value="Submit" />
 			</form>
 		</div>
