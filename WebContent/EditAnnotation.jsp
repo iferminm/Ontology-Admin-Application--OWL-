@@ -13,6 +13,11 @@
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
+<%
+String annotation = request.getParameter("annot");
+OntologyManager manager = new OntologyManager();
+TreeSet<Statement> relations = null;
+%>
 	<div id="wrapper">
 		<div id="header">
 			<p> Este es el header</p>
@@ -35,7 +40,7 @@
 			</div>
 		</div>
 		<div id="contentwrapper">
-			<h2>Available Annotations</h2>
+			
 			
 			<br />
 			
