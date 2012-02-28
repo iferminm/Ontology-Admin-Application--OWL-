@@ -291,6 +291,12 @@ public class OWLActor {
 		return result;
 	}
 	
+	/**
+	 * Gets all properties from a given individual
+	 * @param modelURL model read location
+	 * @param individualURI individual identifier
+	 * @return an iterator with all the statements
+	 */
 	public StmtIterator getAllIndividualProperties(String modelURL, String individualURI) {
 		OntModel model = ModelFactory.createOntologyModel();
 		model.read(modelURL);
@@ -300,5 +306,42 @@ public class OWLActor {
 		StmtIterator iter = individual.listProperties();
 		
 		return iter;
+	}
+	
+	/**
+	 * Removes a list of properties from a given individual
+	 * @param modelURL model read location
+	 * @param modelPath model write location
+	 * @param annotation annotation URI
+	 * @param properties list of property-object values
+	 * @return true if everything went ok
+	 */
+	public boolean deleteAnnotationRelations(String modelURL, String modelPath, String annotation, ArrayList<String[]> properties) {
+		boolean result = false;
+		OntModel model = ModelFactory.createOntologyModel();
+		model.read(modelURL);
+		
+		Individual ind = model.getIndividual(annotation);
+		Iterator<String[]> iter = properties.iterator();
+		
+		while (iter.hasNext()) {
+			String[] current = iter.next();
+			Property prop = ResourceFactory.createProperty(current[0]);
+			RDFNode node = ResourceFactory.createResource(current[1]);
+			
+			ind.removeProperty(prop, node);
+		}
+		
+		try {
+			this.writeModel(model, modelPath);
+			result = true;
+		} catch (FileNotFoundException e) {
+			// TODO log4j
+			e.printStackTrace();
+		} finally {
+			model.close();
+		}
+		
+		return result;
 	}
 }

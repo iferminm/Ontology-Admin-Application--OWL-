@@ -393,4 +393,13 @@ public class OntologyManager {
 		
 		return result;
 	}
+	
+	public boolean removeAnnotationProperties(String annotation, ArrayList<String[]> properties) {
+		boolean result = false;
+		OWLActor actor = new OWLActor();
+		String modelURL = ConfigManager.getInstance().getProperty("baseModelPath");
+		String modelPath = ConfigManager.getInstance().getProperty("baseModelLocation");
+		result = actor.deleteAnnotationRelations(modelURL, modelPath, annotation, properties);
+		return result;
+	}
 }

@@ -3,6 +3,9 @@ package com.admin.servlet;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,6 +38,34 @@ public class EditAnnotationServlet extends HttpServlet {
 		this.doPost(request, response);
 	}
 
+	
+	private ArrayList<String[]> unpackProperties(HttpServletRequest request) {
+		ArrayList<String[]> result = new ArrayList<String[]>();
+		Iterator<String> iterator = request.getParameterMap().keySet().iterator();
+		while (iterator.hasNext()) {
+			String current = iterator.next();
+			if (current.startsWith(THESIS_PREFIX)) {
+				String value = request.getParameter(current);
+				String[] addToResult = {current, value};
+				result.add(addToResult);
+			}
+		}
+		return result;
+	}
+	
+	private boolean deleteAnnotationProperties(String annotation, ArrayList<String[]> properties) {
+		boolean result = true;
+		OntologyManager manager = new OntologyManager();
+		
+		result = manager.removeAnnotationProperties(annotation, properties);
+		for (int i = 0; i < properties.size(); i++) {
+			String[] current = properties.get(i);
+			System.out.println(current[0] + "   " + current[1]);
+		}
+		
+		return result;
+	}
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -50,6 +81,8 @@ public class EditAnnotationServlet extends HttpServlet {
 			OntologyManager manager = new OntologyManager();
 			result = result && manager.deleteResource(annotationName);
 		} else if (action.equals("delete_properties")) {
+			ArrayList<String[]> properties = this.unpackProperties(request);
+			this.deleteAnnotationProperties(annotationName, properties);
 			writer.println("A Borrar propiedades");
 		} else if (action.equals("add_properties")) {
 			response.sendRedirect("AddAnnotation.jsp?edit=" + URLEncoder.encode(annotationName, "UTF-8"));
