@@ -8,6 +8,10 @@
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
+<%
+	String message = request.getParameter("message");
+	String link = request.getParameter("link");
+%>
 	<div id="wrapper">
 		<div id="header">
 			<p> Este es el header</p>
@@ -27,9 +31,10 @@
 			</div>
 		</div>
 		<div id="contentwrapper">
-			<h3>ERROR</h3>
+			<h3 id="error">ERROR</h3>
 			<br />
-			<p>La mamoria no se puede read!!!!!!!</p>
+			<p><%=message%></p>
+			<a href="<%=link%>">Ok</a>
 		</div>
 	</div>
 
