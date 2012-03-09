@@ -34,7 +34,7 @@
 			<h3 id="error">ERROR</h3>
 			<br />
 			<p><%=message%></p>
-			<a href="<%=link%>">Ok</a>
+			<a href="<%=link%>">OK</a>
 		</div>
 	</div>
 
