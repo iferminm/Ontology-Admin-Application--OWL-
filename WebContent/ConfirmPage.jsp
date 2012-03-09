@@ -4,9 +4,40 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>Insert title here</title>
+<link rel="Stylesheet" href="css/GeneralStyle.css" type="text/css" />
+<title>Strigi Ontology Manager</title>
 </head>
 <body>
+<%
+	String message = request.getParameter("message");
+	String link = request.getParameter("link");
+%>
+	<div id="wrapper">
+		<div id="header">
+			<p> Este es el header</p>
+		</div>
+		<div id="menu">
+			<div id="menuitem">
+				<p><a href="PreAddResource.jsp">Add Resource</a></p>			
+			</div>
+			<div id="menuitem">
+				<p><a href="ViewResources.jsp">View Resources</a></p>			
+			</div>
+			<div id="menuitem">
+				<p><a href="AddAnnotation.jsp">Add Annotation</a></p>			
+			</div>
+			<div id="menuitem">
+				<p><a href="ViewAnnotations.jsp">View Annotations</a></p>			
+			</div>
+		</div>
+		<div id="contentwrapper">
+			<h3 id="confirm">Success</h3>
+			<br />
+			<p><%=message%></p>
+			<a href="<%=link%>">Add another one</a>
+			<a href="index.html">Finish</a>
+		</div>
+	</div>
 
 </body>
 </html>
