@@ -34,8 +34,8 @@
 			<h3 id="confirm">Success</h3>
 			<br />
 			<p><%=message%></p>
-			<a href="<%=link%>">Add another one</a>
-			<a href="index.html">Finish</a>
+			<a href="<%=link%>">Add another one</a> <br />
+			<a href="OntologyServlet">Update model and finish</a>
 		</div>
 	</div>
 
