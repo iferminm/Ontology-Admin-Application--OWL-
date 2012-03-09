@@ -115,23 +115,25 @@ public class AddResourceServlet extends HttpServlet {
 			String[] selectedAnotations = this.unpackValues(map);
 			if (selectedAnotations == null) {
 				String message = URLEncoder.encode("You must select at least one annotation for the resource", "UTF-8");
-				String link = "ErrorPage.jsp?message=" + message + "&link=PreAddResource.jsp";
+				String link = "ErrorPage.jsp?message=" + message + "&link=javascript:window.history.back();";
 				response.sendRedirect(link);
 			} else {
 				OntologyManager om = new OntologyManager();
 				boolean result = om.addResource(uri, selectedAnotations);
 				if (result) {
-					PrintWriter writer = response.getWriter();
-					writer.write("success");
+					String message = URLEncoder.encode("Resource added successfully", "UTF-8");
+					String link = "ConfirmPage.jsp?message=" + message + "&link=PreAddResource.jsp";
+					response.sendRedirect(link);
+					
 				} else {
-					String link = URLEncoder.encode("ErrorPage.jsp?message=There were errors while adding the resource" +
-							"&link=PreAddResource.jsp", "UTF-8");
+					String message = URLEncoder.encode("There were errors while adding the resource", "UTF-8");
+					String link = "ErrorPage.jsp?message=" + message + "&link=PreAddResource.jsp";
 					response.sendRedirect(link);
 				}
 			}
 		} else {
 			String message = URLEncoder.encode("Invalid URL: must start with http://", "UTF-8");
-			String link = "ErrorPage.jsp?message=" + message + "&link=PreAddResource.jsp";
+			String link = "ErrorPage.jsp?message=" + message + "&link=javascript:window.history.back();";
 			response.sendRedirect(link);
 		}
 	}
