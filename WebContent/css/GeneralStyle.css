@@ -71,3 +71,7 @@ SELECT {
 	min-width: 300px;
 	border: 1px solid black;
 }
+
+H3#error {
+	color: red;
+}
