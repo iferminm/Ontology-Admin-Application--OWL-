@@ -86,6 +86,11 @@ public class AddResourceServlet extends HttpServlet {
 		return result;
 	}
 	
+	/**
+	 * Validates if the resource URL is a valid URL
+	 * @param map the request parameters map
+	 * @return the valid URL or null us URL is invalid
+	 */
 	private String validateResourceURI(Map<String, String[]> map) {
 		String result = null;
 		Set<String> keys = map.keySet();
