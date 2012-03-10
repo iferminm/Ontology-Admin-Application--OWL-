@@ -101,7 +101,7 @@ public class AddAnnotationServlet extends HttpServlet {
 			response.sendRedirect(link);
 		}
 		String message = URLEncoder.encode("Annotation added", "UTF-8");
-		String link = "ConfirmPage.jsp?message=" + message + "&link=index.html";
+		String link = "ConfirmPage.jsp?message=" + message + "&link=AddAnnotation.jsp";
 		response.sendRedirect(link);
 	}
 }

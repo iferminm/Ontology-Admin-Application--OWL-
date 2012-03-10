@@ -75,21 +75,30 @@ public class EditAnnotationServlet extends HttpServlet {
 		if (action.equals("delete_annotation")) {
 			OntologyManager manager = new OntologyManager();
 			result = result && manager.deleteResource(annotationName);
+			if (result) {
+				String message = URLEncoder.encode("Operation completed", "UTF-8");
+				String link = "ConfirmPage.jsp?message=" + message + "&link=ViewAnnotations.jsp";
+				response.sendRedirect(link);
+			} else {
+				String message = "Couldn't complete the requested operation";
+				String link = "ErrorPage.jsp?message=" + message + "&link=javascript:page.history.back();";
+				response.sendRedirect(link);
+			}
 		} else if (action.equals("delete_properties")) {
 			ArrayList<String[]> properties = this.unpackProperties(request);
-			this.deleteAnnotationProperties(annotationName, properties);
+			result = this.deleteAnnotationProperties(annotationName, properties);
+			if (result) {
+				String message = URLEncoder.encode("Operation completed", "UTF-8");
+				String link = "ConfirmPage.jsp?message=" + message + "&link=ViewAnnotations.jsp";
+				response.sendRedirect(link);
+			} else {
+				String message = "Couldn't complete the requested operation";
+				String link = "ErrorPage.jsp?message=" + message + "&link=javascript:page.history.back();";
+				response.sendRedirect(link);
+			}
 		} else if (action.equals("add_properties")) {
 			response.sendRedirect("AddAnnotation.jsp?edit=" + URLEncoder.encode(annotationName, "UTF-8"));
 		}
 		
-		if (result) {
-			String message = URLEncoder.encode("Operation completed", "UTF-8");
-			String link = "ConfirmPage.jsp?message=" + message + "&link=ViewAnnotations.jsp";
-			response.sendRedirect(link);
-		} else {
-			String message = "Couldn't complete the requested operation";
-			String link = "ErrorPage.jsp?message=" + message + "&link=javascript:page.history.back();";
-			response.sendRedirect(link);
-		}
 	}
 }
