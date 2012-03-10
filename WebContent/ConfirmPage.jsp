@@ -1,11 +1,17 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd" />
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Stylesheet" href="css/GeneralStyle.css" type="text/css" />
 <title>Strigi Ontology Manager</title>
 </head>
 <body>
+<%
+	String message = request.getParameter("message");
+	String link = request.getParameter("link");
+%>
 	<div id="wrapper">
 		<div id="header">
 			<p> Este es el header</p>
@@ -25,7 +31,11 @@
 			</div>
 		</div>
 		<div id="contentwrapper">
-			<h2>Welcome to Strigi</h2>
+			<h3 id="confirm">Success</h3>
+			<br />
+			<p><%=message%></p>
+			<a href="<%=link%>">One More</a> <br />
+			<a href="OntologyServlet">Update model and finish</a>
 		</div>
 	</div>
 

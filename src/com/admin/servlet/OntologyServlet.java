@@ -1,7 +1,6 @@
 package com.admin.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -42,12 +41,10 @@ public class OntologyServlet extends HttpServlet {
 		OntologyManager om = new OntologyManager();
 		boolean deleteResult = om.deleteOntology();
 		boolean loadResult = om.loadOntology();
-		response.setContentType("text/html");
-		PrintWriter writer = response.getWriter();
 		if (deleteResult && loadResult) {
-			writer.write("<h1 fontcolor=\"green\">OK</h1>");
+			response.sendRedirect("ModelUpdated.html");
 		} else {
-			writer.write("<h1 fontcolot=\"red\">ERROR</h1>");
+			response.sendRedirect("UpdateError.html");
 		}
 	}
 }
