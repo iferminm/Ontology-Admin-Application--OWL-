@@ -1,11 +1,9 @@
 package com.admin.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -73,9 +71,6 @@ public class EditAnnotationServlet extends HttpServlet {
 		String action = request.getParameter("action");
 		String annotationName = request.getParameter("annotation");
 		boolean result = true;
-		response.setContentType("text/html");
-		
-		PrintWriter writer = response.getWriter();
 		
 		if (action.equals("delete_annotation")) {
 			OntologyManager manager = new OntologyManager();
@@ -83,17 +78,18 @@ public class EditAnnotationServlet extends HttpServlet {
 		} else if (action.equals("delete_properties")) {
 			ArrayList<String[]> properties = this.unpackProperties(request);
 			this.deleteAnnotationProperties(annotationName, properties);
-			writer.println("A Borrar propiedades");
 		} else if (action.equals("add_properties")) {
 			response.sendRedirect("AddAnnotation.jsp?edit=" + URLEncoder.encode(annotationName, "UTF-8"));
 		}
 		
 		if (result) {
-			writer.println("SUCCESS");
+			String message = URLEncoder.encode("Operation completed", "UTF-8");
+			String link = "ConfirmPage.jsp?message=" + message + "&link=ViewAnnotations.jsp";
+			response.sendRedirect(link);
 		} else {
-			writer.write("ERROR");
+			String message = "Couldn't complete the requested operation";
+			String link = "ErrorPage.jsp?message=" + message + "&link=javascript:page.history.back();";
+			response.sendRedirect(link);
 		}
-		
-		writer.close();
 	}
 }
