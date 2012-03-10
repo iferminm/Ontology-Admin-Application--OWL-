@@ -1,11 +1,10 @@
 package com.admin.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Enumeration;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -42,19 +41,20 @@ public class EditResourceServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String action = request.getParameter("action");
 		String resource = request.getParameter("resource");
-		response.setContentType("text/html");
-		PrintWriter writer = response.getWriter();
 		
 		if (action.equals("delete_resource")) {
 			OntologyManager om = new OntologyManager();
 			boolean result = om.deleteResource(resource);
 			if (result) {
-				writer.write("OK");
+				String message = URLEncoder.encode("Resource deleted", "UTF-8");
+				String link = "ConfirmPage.jsp?message=" + message + "&link=ViewResources.jsp";
+				response.sendRedirect(link);
 			} else {
-				writer.write("error");
+				String message = URLEncoder.encode("Couldn't delete the requested resource", "UTF-8");
+				String link = "ErrorPage.jsp?message=" + message + "?link=javascript:window.history.back();";
+				response.sendRedirect(link);
 			}
 		} else if (action.equals("delete_annotations")) {
-			writer.write("Borraremos las anotaciones: <br />");
 			Enumeration<String> paramNames = request.getParameterNames();
 			OntologyManager om = new OntologyManager();
 			ArrayList<String> annotations = new ArrayList<String>();
@@ -68,14 +68,16 @@ public class EditResourceServlet extends HttpServlet {
 			
 			boolean result = om.deleteResourceAnnotations(resource, annotations);
 			if (result) {
-				writer.write("OK");
+				String message = URLEncoder.encode("Annotations deleted", "UTF-8");
+				String link = "ConfirmPage.jsp?message=" + message + "&link=ViewResources.jsp";
+				response.sendRedirect(link);
 			} else {
-				writer.write("error");
+				String message = URLEncoder.encode("Couldn't delete the requested annotations", "UTF-8");
+				String link = "ErrorPage.jsp?message=" + message + "&link=javascript:window.history.back();";
+				response.sendRedirect(link);
 			}
 		} else if (action.equals("add_annotations")) {
 			response.sendRedirect("PreAddResource.jsp?resource=" + resource);
 		}
-		
-		writer.close();
 	}
 }
