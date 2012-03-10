@@ -1,7 +1,7 @@
 package com.admin.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
@@ -22,7 +22,6 @@ public class AddAnnotationServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	private static final String THESIS_PREFIX = "http://localhost/ontologies/ThesisOntology.owl#";
-	private static final String RDF_PREFIX = "http://www.w3.org/1999/02/22-rdf-syntax-ns#";
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -66,10 +65,10 @@ public class AddAnnotationServlet extends HttpServlet {
 				if ( (!topic.equals("noselect")) && (annotationAdd) ) {
 					annotationAdd = annotationAdd && manager.addTriplet(annotationName, THESIS_PREFIX + "in-topic", topic);
 				} else {
-					PrintWriter writer = response.getWriter();
-					writer.write("There were errors adding the annotation");
+					String message = URLEncoder.encode("There were errors adding the annotation", "UTF-8");
+					String link = "ErrorPage.jsp?message=" + message + "?link=javascript:window.history.back();";
 					manager.deleteResource(annotationName);
-					writer.close();
+					response.sendRedirect(link);
 				}
 			} else {
 				Map<String, String[]> values = request.getParameterMap();
@@ -85,10 +84,10 @@ public class AddAnnotationServlet extends HttpServlet {
 								if (annotationAdd) {
 									annotationAdd = annotationAdd && manager.addTriplet(annotationName, relation, objects[i]);
 								} else {
-									PrintWriter writer = response.getWriter();
-									writer.write("There were errors adding the annotation");
+									String message = URLEncoder.encode("There were errors adding the annotation", "UTF-8");
+									String link = "ErrorPage.jsp?message=" + message + "&link=javascript:window.history.back();";
 									manager.deleteResource(annotationName);
-									writer.close();
+									response.sendRedirect(link);
 								}
 							}
 						}
@@ -96,12 +95,13 @@ public class AddAnnotationServlet extends HttpServlet {
 				}
 			}
 		} else {
-			PrintWriter writer = response.getWriter();
-			writer.write("There were errors adding the annotation");
+			String message = URLEncoder.encode("There were errors adding the annotation", "UTF-8");
+			String link = "ErrorPage.jsp?message=" + message + "&link=javascript:window.history.back();";
 			manager.deleteResource(annotationName);
-			writer.close();
+			response.sendRedirect(link);
 		}
-		PrintWriter writer = response.getWriter();
-		writer.write("SUCCESS");
+		String message = URLEncoder.encode("Annotation added", "UTF-8");
+		String link = "ConfirmPage.jsp?message=" + message + "&link=ViewResources.jsp";
+		response.sendRedirect(link);
 	}
 }
