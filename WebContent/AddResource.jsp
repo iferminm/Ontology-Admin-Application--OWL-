@@ -14,7 +14,7 @@
 
 <script language="JavaScript" type="text/javascript" src="js/resource_selectboxes_chainning.js"></script>
 
-<title>Strigi Ontology Manager</title>
+<title>Striggi Ontology Manager</title>
 </head>
 <body>
 <%

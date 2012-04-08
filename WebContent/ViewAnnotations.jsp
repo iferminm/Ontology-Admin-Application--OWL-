@@ -12,7 +12,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <link rel="Stylesheet" href="css/GeneralStyle.css" type="text/css" />
 <script language="JavaScript" type="text/javascript" src="js/class_instance_chainning.js"></script>
-<title>Strigi Ontology Manager</title>
+<title>Striggi Ontology Manager</title>
 </head>
 <body>
 <%
