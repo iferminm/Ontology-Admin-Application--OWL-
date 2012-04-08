@@ -36,9 +36,7 @@
 
 		</div>
 		<div id="menu">
-			<div id="menuitem">
-				<p>View Ontology</p>
-			</div>
+			
 			<div id="menuitem">
 				<p><a href="PreAddResource.jsp">Add Resource</a></p>			
 			</div>
