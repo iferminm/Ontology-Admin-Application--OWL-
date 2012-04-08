@@ -11,8 +11,6 @@
 DIV#wrapper {
 	width: 100%;
 	height: 100%;
-	background-image: "images/gradient.jpg";
-	background-repeat: repeat-x;
 }
 
 DIV#header {
@@ -21,8 +19,6 @@ DIV#header {
 	vertical-align: top;
 	position: absolute;
 	border-bottom: 1px solid black;
-	background-image: "images/gradient.jpg";
-	background-repeat: repeat-x;
 }
 
 DIV#contentwrapper{
