@@ -23,7 +23,7 @@ Iterator<MyStatement> classesIterator = classes.iterator();
 %>
 	<div id="wrapper">
 		<div id="header">
-			<p> Este es el header</p>
+
 		</div>
 		<div id="menu">
 			<div id="menuitem">

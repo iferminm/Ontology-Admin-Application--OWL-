@@ -23,7 +23,7 @@ final String THESIS_PREFIX = "http://localhost/ontologies/ThesisOntology.owl";
 %>
 	<div id="wrapper">
 		<div id="header">
-			<p> Este es el header</p>
+
 		</div>
 		<div id="menu">
 			<div id="menuitem">
