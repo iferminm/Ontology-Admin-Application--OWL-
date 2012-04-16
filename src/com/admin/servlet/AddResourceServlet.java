@@ -104,6 +104,7 @@ public class AddResourceServlet extends HttpServlet {
 		Map<String, String[]> map = request.getParameterMap();
 		response.setContentType("text/html");
 		String uri = this.validateResourceURI(map);
+		boolean result = false;
 		
 		if (uri != null) {
 			String[] selectedAnotations = this.unpackValues(map);
@@ -113,7 +114,7 @@ public class AddResourceServlet extends HttpServlet {
 							uri + "</a></p>");
 			} else {
 				OntologyManager om = new OntologyManager();
-				boolean result = om.addResource(uri, selectedAnotations);
+				result = om.addResource(uri, selectedAnotations);
 			}
 		} else {
 			PrintWriter writer = response.getWriter();
