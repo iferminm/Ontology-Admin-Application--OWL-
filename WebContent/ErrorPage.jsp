@@ -14,7 +14,6 @@
 %>
 	<div id="wrapper">
 		<div id="header">
-			<p> Este es el header</p>
 		</div>
 		<div id="menu">
 			<div id="menuitem">
