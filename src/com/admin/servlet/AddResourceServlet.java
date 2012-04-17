@@ -1,7 +1,7 @@
 package com.admin.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLEncoder;
 import java.util.Map;
 import java.util.Set;
 
@@ -85,6 +85,11 @@ public class AddResourceServlet extends HttpServlet {
 		return result;
 	}
 	
+	/**
+	 * Validates if the resource URL is a valid URL
+	 * @param map the request parameters map
+	 * @return the valid URL or null us URL is invalid
+	 */
 	private String validateResourceURI(Map<String, String[]> map) {
 		String result = null;
 		Set<String> keys = map.keySet();
@@ -109,18 +114,27 @@ public class AddResourceServlet extends HttpServlet {
 		if (uri != null) {
 			String[] selectedAnotations = this.unpackValues(map);
 			if (selectedAnotations == null) {
-				PrintWriter writer = response.getWriter();
-				writer.write("<p><a href=\"PreAddResource.html\">You must select at least one annotation for the resource: " +
-							uri + "</a></p>");
+				String message = URLEncoder.encode("You must select at least one annotation for the resource", "UTF-8");
+				String link = "ErrorPage.jsp?message=" + message + "&link=javascript:window.history.back();";
+				response.sendRedirect(link);
 			} else {
 				OntologyManager om = new OntologyManager();
 				result = om.addResource(uri, selectedAnotations);
+				if (result) {
+					String message = URLEncoder.encode("Resource added successfully", "UTF-8");
+					String link = "ConfirmPage.jsp?message=" + message + "&link=PreAddResource.jsp";
+					response.sendRedirect(link);
+					
+				} else {
+					String message = URLEncoder.encode("There were errors while adding the resource", "UTF-8");
+					String link = "ErrorPage.jsp?message=" + message + "&link=PreAddResource.jsp";
+					response.sendRedirect(link);
+				}
 			}
 		} else {
-			PrintWriter writer = response.getWriter();
-			writer.write("<p><a href=\"PreAddResource.html\">Invalid URL</a></p>");
-			writer.close();
+			String message = URLEncoder.encode("Invalid URL: must start with http://", "UTF-8");
+			String link = "ErrorPage.jsp?message=" + message + "&link=javascript:window.history.back();";
+			response.sendRedirect(link);
 		}
 	}
-
 }
