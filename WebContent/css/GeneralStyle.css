@@ -5,7 +5,7 @@
 	padding: 0px;
 	border: 0px;
 	font-family: sans-serif;
-	
+	background-color: #73c8f9;
 }
 
 DIV#wrapper {
@@ -17,8 +17,9 @@ DIV#header {
 	width: 100%;
 	height: 100px;
 	vertical-align: top;
-	position: absolute;
-	border-bottom: 1px solid black;
+	position: fixed;
+	background-color: #01253a;
+	z-index: 10;
 }
 
 DIV#contentwrapper{
@@ -28,8 +29,16 @@ DIV#contentwrapper{
 	margin-left: 20%;
 	position: absolute;
 	padding-left: 10%;
-	border-right: 1px solid black;
 	padding-top: 5%;
+	z-index: 5;
+}
+
+DIV#owlpet {
+	background-image: url('../images/buho_2.gif');
+	background-repeat: no-repeat;
+	background-position: center top;
+	width: 100%;
+	height: 100%;
 }
 
 DIV#menu {
@@ -39,15 +48,16 @@ DIV#menu {
 	float: left;
 	margin-top: 100px;
 	margin-left: 10%;
-	position: absolute;
+	position: fixed;
 	border-left: 1px solid black;
 	border-right: 1px solid black;
+	background-color: #406f8a;
+	z-index: 20;
 }
 
 DIV#menuitem{
 	width: 80%;
 	padding: 3px;
-	border: 1px solid black;
 	margin-top: 10%;
 	margin-left: 8%;
 	text-align: center;
@@ -55,7 +65,7 @@ DIV#menuitem{
 }
 
 DIV#menuitem:hover {
-	background-color: black;
+	background-color: orange;
 	color: white;
 }
 
